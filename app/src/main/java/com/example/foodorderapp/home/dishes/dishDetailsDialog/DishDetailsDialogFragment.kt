@@ -41,14 +41,14 @@ class DishDetailsDialogFragment : DialogFragment() {
         tvName.text = dish.name
         ivDish.load(dish.imageUrl)
         tvDescription.text = dish.description
-        val characteristicTitle =
+        val priceAndWeightTitle =
             requireContext().getString(com.example.coreui.R.string.price_and_weight)
                 .format(dish.price.toString(), dish.weight.toString())
-        val outPutColoredText: Spannable = SpannableString(characteristicTitle)
+        val outPutColoredText: Spannable = SpannableString(priceAndWeightTitle)
         outPutColoredText.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.black)),
             0,
-            characteristicTitle.indexOf("₽") + 1,
+            priceAndWeightTitle.indexOf("₽") + 1,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         tvPriceAndWeight.text = outPutColoredText
