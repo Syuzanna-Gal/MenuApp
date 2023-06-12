@@ -4,4 +4,7 @@
     <string name="search_title">Поиск</string>
     <string name="basket_title">Корзина</string>
     <string name="profile_title">Аккаунт</string>
+    <string name="add_to_basket">Добавить в корзину</string>
+    <string name="price_and_weight">%s ₽ · %sг</string>
+    <string name="pay">Оплатить %s ₽</string>
 </resources>

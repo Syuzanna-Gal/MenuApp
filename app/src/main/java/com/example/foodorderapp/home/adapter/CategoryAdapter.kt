@@ -10,7 +10,7 @@ import me.ibrahimyilmaz.kiel.adapterOf
 import me.ibrahimyilmaz.kiel.core.RecyclerViewHolder
 
 class CategoryAdapter(
-    private val onCategoryClick: () -> Unit
+    private val onCategoryClick: (String) -> Unit
 ) {
 
     companion object {
@@ -37,7 +37,7 @@ class CategoryAdapter(
 
     class CategoryViewHolder(
         view: View,
-        private val onCategoryClick: () -> Unit
+        private val onCategoryClick: (String) -> Unit
     ) : RecyclerViewHolder<CategoryUi>(view) {
 
         private val binding = ItemCategoryBinding.bind(view)
@@ -48,7 +48,7 @@ class CategoryAdapter(
                 transformations(RoundedCornersTransformation((IMAGE_CORNER_RADIUS * itemView.context.resources.displayMetrics.density)))
             }
             itemView.setOnClickListener {
-                onCategoryClick()
+                onCategoryClick(item.title)
             }
         }
     }

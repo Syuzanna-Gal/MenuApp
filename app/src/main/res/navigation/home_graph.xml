@@ -6,5 +6,30 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.foodorderapp.home.HomeFragment" />
+        android:name="com.example.foodorderapp.home.HomeFragment" >
+        <action
+            android:id="@+id/toDishesFragment"
+            app:destination="@id/dishesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/dishesFragment"
+        android:name="com.example.foodorderapp.home.dishes.DishesFragment" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <action
+            android:id="@+id/toDishDetailsDialogFragment"
+            app:destination="@id/dishDetailsDialogFragment" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/dishDetailsDialogFragment"
+        android:name="com.example.foodorderapp.home.dishes.dishDetailsDialog.DishDetailsDialogFragment"
+        android:label="DishDetailsDialogFragment" >
+        <argument
+            android:name="dish"
+            app:argType="com.example.domain.models.DishUi" />
+    </dialog>
+
 </navigation>

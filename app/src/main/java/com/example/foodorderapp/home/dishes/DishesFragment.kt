@@ -1,4 +1,4 @@
-package com.example.foodorderapp.home
+package com.example.foodorderapp.home.dishes
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,29 +7,29 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.coreui.extensions.collectWhenStarted
-import com.example.coreui.extensions.getCurrentDate
 import com.example.coreui.util.USER_PIC_IMAGE_RADIUS
 import com.example.coreui.util.USER_PIC_URL
 import com.example.foodorderapp.R
-import com.example.foodorderapp.databinding.FragmentHomeBinding
-import com.example.foodorderapp.home.adapter.CategoryAdapter
+import com.example.foodorderapp.databinding.FragmentDishesBinding
+import com.example.foodorderapp.home.adapter.DishesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment() : Fragment(R.layout.fragment_home) {
+class DishesFragment : Fragment() {
 
     private val binding by lazy {
-        FragmentHomeBinding.inflate(LayoutInflater.from(requireContext()))
+        FragmentDishesBinding.inflate(LayoutInflater.from(requireContext()))
     }
-    private val viewModel: HomeViewModel by viewModels()
-
-    private val categoriesAdapter by lazy {
-        CategoryAdapter(onCategoryClick = {
+    private val viewModel: DishesViewModel by viewModels()
+    private val navArgs by navArgs<DishesFragmentArgs>()
+    private val dishesAdapter by lazy {
+        DishesAdapter(onDishClick = {
             Navigation.findNavController(requireActivity(), R.id.mainNavContainer)
-                .navigate(HomeFragmentDirections.toDishesFragment(it))
+                .navigate(DishesFragmentDirections.toDishDetailsDialogFragment(it))
         })
     }
 
@@ -42,20 +42,19 @@ class HomeFragment() : Fragment(R.layout.fragment_home) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
-        viewModel.getCategoriesList()
+        viewModel.getDishesList()
         initObservers()
-        rvCategory.adapter = categoriesAdapter.adapter
         ivUserPic.load(USER_PIC_URL) {
             transformations(RoundedCornersTransformation(USER_PIC_IMAGE_RADIUS))
         }
-        tvTime.text = getCurrentDate()
+        btnBack.setOnClickListener { activity?.onBackPressedDispatcher?.onBackPressed() }
+        tvTitle.text = navArgs.title
+        rvDishes.adapter = dishesAdapter.adapter
     }
 
     private fun initObservers() {
-        collectWhenStarted(viewModel.categoriesList) {
-            it?.let {
-                categoriesAdapter.adapter.submitList(it)
-            }
+        collectWhenStarted(viewModel.dishesList) {
+            dishesAdapter.adapter.submitList(it)
         }
     }
 }

@@ -2,7 +2,11 @@
 <resources>
     <color name="black">#000000</color>
     <color name="black_half_transparent">#80000000</color>
+    <color name="black_transparent_65">#A6000000</color>
+    <color name="black_transparent_40">#66000000</color>
     <color name="white">#FFFFFF</color>
     <color name="royalBlue">#3364E0</color>
     <color name="metallicSilver">#A5A9B2</color>
+    <color name="cultured">#F8F7F5</color>
+    <color name="transparent">#00000000</color>
 </resources>
