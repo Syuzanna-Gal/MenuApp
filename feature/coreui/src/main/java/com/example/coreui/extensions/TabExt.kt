@@ -1,4 +1,4 @@
-package com.example.coreui
+package com.example.coreui.extensions
 
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -16,4 +16,17 @@ fun TabLayout.changeTabParams() {
         tab.layoutParams = layoutParams
         this.requestLayout()
     }
+}
+
+fun TabLayout.addOnTabSelectedListener(
+    onTabSelected: (TabLayout.Tab?) -> Unit
+) {
+    addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        override fun onTabSelected(tab: TabLayout.Tab?) {
+            onTabSelected(tab)
+        }
+
+        override fun onTabUnselected(tab: TabLayout.Tab?) {}
+        override fun onTabReselected(tab: TabLayout.Tab?) {}
+    })
 }

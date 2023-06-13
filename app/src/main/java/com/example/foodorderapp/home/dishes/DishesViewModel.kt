@@ -14,13 +14,13 @@ class DishesViewModel @Inject constructor(
     private val getDishesUseCase: GetDishesUseCase,
 ) : BaseViewModel() {
 
-    private val _dishesList = MutableStateFlow<List<DishUiEntity>?>(null)
+    private val _dishesList = MutableStateFlow<List<DishUiEntity?>?>(null)
     val dishesList = _dishesList.asStateFlow()
 
     private val _tagsList = MutableStateFlow<Set<String>?>(null)
     val tagsList = _tagsList.asStateFlow()
 
-    private var _allDishes = listOf<DishUiEntity>()
+    private var _allDishes = listOf<DishUiEntity?>()
 
     init {
         getDishesList()
@@ -30,7 +30,7 @@ class DishesViewModel @Inject constructor(
         getDishesUseCase.invoke()
             .onEach { dishes ->
                 _tagsList.value =
-                    dishes.flatMap { it.tags }.toSet()
+                    dishes.flatMap { it?.tags ?: listOf() }.toSet()
                 _allDishes = dishes
                 _dishesList.value = dishes
             }
@@ -41,7 +41,7 @@ class DishesViewModel @Inject constructor(
 
     fun updateDishesAccordingTag(tagTitle: String) {
         _dishesList.update {
-            _allDishes.filter { it.tags.contains(tagTitle) }
+            _allDishes.filter { it?.tags?.contains(tagTitle) ?: false }
         }
     }
 

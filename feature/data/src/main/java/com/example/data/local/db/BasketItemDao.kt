@@ -2,7 +2,9 @@ package com.example.data.local.db
 
 import androidx.room.*
 import com.example.data.local.db.entity.BasketItemDbEntity
+import dagger.Provides
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Singleton
 
 @Dao
 interface BasketItemDao {
@@ -17,14 +19,14 @@ interface BasketItemDao {
     fun sumOfQuantityAsFlow(): Flow<Int>
 
     @Query("SELECT * FROM basket_item WHERE id = :productId")
-    suspend fun findById(productId: Int): BasketItemDbEntity
+    fun findById(productId: Int): Flow<BasketItemDbEntity?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(cartItem: BasketItemDbEntity)
+    suspend fun insert(basketItem: BasketItemDbEntity)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun update(cartItem: BasketItemDbEntity)
+    suspend fun update(basketItem: BasketItemDbEntity)
 
     @Delete
-    suspend fun delete(cartItem: BasketItemDbEntity)
+    suspend fun delete(basketItem: BasketItemDbEntity)
 }

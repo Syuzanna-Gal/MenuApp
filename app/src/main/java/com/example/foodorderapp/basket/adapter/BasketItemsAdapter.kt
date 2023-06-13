@@ -14,8 +14,8 @@ import me.ibrahimyilmaz.kiel.adapterOf
 import me.ibrahimyilmaz.kiel.core.RecyclerViewHolder
 
 class BasketItemsAdapter(
-    private val onRemoveClick: () -> Unit,
-    private val onAddClick: () -> Unit
+    private val onRemoveClick: (BasketItemUiEntity) -> Unit,
+    private val onAddClick: (BasketItemUiEntity) -> Unit
 ) {
 
     companion object {
@@ -42,8 +42,8 @@ class BasketItemsAdapter(
 
     class CategoryViewHolder(
         view: View,
-        private val onRemoveClick: () -> Unit,
-        private val onAddClick: () -> Unit
+        private val onRemoveClick: (BasketItemUiEntity) -> Unit,
+        private val onAddClick: (BasketItemUiEntity) -> Unit
     ) : RecyclerViewHolder<BasketItemUiEntity>(view) {
 
         private val binding = ItemInBasketBinding.bind(view)
@@ -55,25 +55,25 @@ class BasketItemsAdapter(
             }
 
             btnAdd.setOnClickListener {
-                onAddClick()
+                onAddClick(item)
             }
 
             btnRemove.setOnClickListener {
-                onRemoveClick()
+                onRemoveClick(item)
             }
 
             val priceAndWeightTitle =
                 itemView.context.getString(com.example.coreui.R.string.price_and_weight)
-                    .format(item.price.toString(), item.weight.toString())
+                    .format(item.price.toInt().toString(), item.weight.toInt().toString())
             val outPutColoredText: Spannable = SpannableString(priceAndWeightTitle)
             outPutColoredText.setSpan(
-                ForegroundColorSpan(ContextCompat.getColor( itemView.context, R.color.black)),
+                ForegroundColorSpan(ContextCompat.getColor(itemView.context, R.color.black)),
                 0,
                 priceAndWeightTitle.indexOf("₽") + 1,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
             tvPriceAndWeight.text = outPutColoredText
-            tvAmount.text = item.amount.toString()
+            tvAmount.text = item.quantity.toString()
         }
     }
 }

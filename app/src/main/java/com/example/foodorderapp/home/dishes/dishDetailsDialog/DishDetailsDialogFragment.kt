@@ -1,49 +1,35 @@
 package com.example.foodorderapp.home.dishes.dishDetailsDialog
 
-import android.app.Dialog
-import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import coil.load
+import com.example.coreui.delegate.viewBinding
 import com.example.foodorderapp.R
+import com.example.foodorderapp.core.base.BaseDialogFragment
 import com.example.foodorderapp.databinding.DialogDishDetailsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class DishDetailsDialogFragment : DialogFragment() {
+@AndroidEntryPoint
+class DishDetailsDialogFragment :
+    BaseDialogFragment<DishDetailsDialogViewModel>(R.layout.dialog_dish_details) {
 
-    private val binding by lazy {
-        DialogDishDetailsBinding.inflate(LayoutInflater.from(requireContext()))
-    }
+    private val binding by viewBinding(DialogDishDetailsBinding::bind)
+    override val viewModel: DishDetailsDialogViewModel by viewModels()
     private val navArgs by navArgs<DishDetailsDialogFragmentArgs>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return binding.root
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        setStyle(STYLE_NORMAL, com.example.coreui.R.style.DialogTheme)
-
-        return super.onCreateDialog(savedInstanceState)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
+    override fun initView() = with(binding) {
         val dish = navArgs.dish
         tvName.text = dish.name
         ivDish.load(dish.imageUrl)
         tvDescription.text = dish.description
         val priceAndWeightTitle =
             requireContext().getString(com.example.coreui.R.string.price_and_weight)
-                .format(dish.price.toString(), dish.weight.toString())
+                .format(dish.price.toInt().toString(), dish.weight.toInt().toString())
         val outPutColoredText: Spannable = SpannableString(priceAndWeightTitle)
         outPutColoredText.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.black)),
@@ -53,6 +39,10 @@ class DishDetailsDialogFragment : DialogFragment() {
         )
         tvPriceAndWeight.text = outPutColoredText
         btnCancel.setOnClickListener {
+            dialog?.dismiss()
+        }
+        btnAddToBasket.setOnClickListener {
+            viewModel.addToBasket(dish)
             dialog?.dismiss()
         }
     }

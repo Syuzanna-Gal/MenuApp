@@ -1,10 +1,10 @@
 package com.example.domain.entity
 
-class BasketItemUiEntity(
+data class BasketItemUiEntity(
     val id: Int,
     val name: String,
-    val price: Int,
-    val weight: Int,
+    val price: Double,
+    val weight: Double,
     val imageUrl: String,
-    val amount: Int = 0
+    val quantity: Int = 0
 )

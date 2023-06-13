@@ -1,9 +1,5 @@
 package com.example.foodorderapp.basket
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import coil.load
 import coil.transform.RoundedCornersTransformation
@@ -25,7 +21,11 @@ class BasketFragment : BaseFragment<BasketViewModel>(R.layout.fragment_basket) {
     override val viewModel: BasketViewModel by viewModels()
 
     private val basketAdapter by lazy {
-        BasketItemsAdapter(onAddClick = {}, onRemoveClick = {})
+        BasketItemsAdapter(onAddClick = {
+            viewModel.addItem(it)
+        }, onRemoveClick = {
+            viewModel.removeItem(it)
+        })
     }
 
     override fun initView() = with(binding) {
@@ -46,7 +46,7 @@ class BasketFragment : BaseFragment<BasketViewModel>(R.layout.fragment_basket) {
         collectWhenStarted(viewModel.paymentAmount) {
             it?.let {
                 binding.btnPay.text =
-                    getString(com.example.coreui.R.string.pay).format(it.toString())
+                    getString(com.example.coreui.R.string.pay).format(it.toInt().toString())
             }
         }
     }

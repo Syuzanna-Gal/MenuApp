@@ -14,7 +14,7 @@ class HomeViewModel @Inject constructor(
     private val getCategoryUseCase: GetCategoryUseCase,
 ) : BaseViewModel() {
 
-    private val _categoriesList = MutableStateFlow<List<CategoryUiEntity>?>(null)
+    private val _categoriesList = MutableStateFlow<List<CategoryUiEntity?>?>(null)
     val categoriesList = _categoriesList.asStateFlow()
 
     init {

@@ -1,12 +1,12 @@
 package com.example.foodorderapp.home.dishes
 
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.example.coreui.changeTabParams
 import com.example.coreui.delegate.viewBinding
+import com.example.coreui.extensions.addOnTabSelectedListener
+import com.example.coreui.extensions.changeTabParams
 import com.example.coreui.extensions.collectWhenStarted
 import com.example.coreui.extensions.dp
 import com.example.coreui.util.AdaptiveSpacingItemDecoration
@@ -16,7 +16,6 @@ import com.example.foodorderapp.R
 import com.example.foodorderapp.core.base.BaseFragment
 import com.example.foodorderapp.databinding.FragmentDishesBinding
 import com.example.foodorderapp.home.adapter.DishesAdapter
-import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,20 +38,11 @@ class DishesFragment : BaseFragment<DishesViewModel>(R.layout.fragment_dishes) {
         tvTitle.text = navArgs.title
         rvDishes.adapter = dishesAdapter.adapter
         rvDishes.addItemDecoration(AdaptiveSpacingItemDecoration(8.dp, edgeEnabled = true))
-        //TODO: I principe in the SOLID
-        tlFilters.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                viewModel.updateDishesAccordingTag(tab.text.toString())
+        tlFilters.addOnTabSelectedListener { tab ->
+            tab?.let {
+                viewModel.updateDishesAccordingTag(it.text.toString())
             }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {
-
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab) {
-
-            }
-        })
+        }
     }
 
     override fun initObservers() {
