@@ -8,7 +8,7 @@ class MapperCategoryToUiEntity : Mapper<CategoryEntity, CategoryUiEntity> {
     override fun map(from: CategoryEntity): CategoryUiEntity {
         return CategoryUiEntity(
             id = from.id,
-            title = from.title.orEmpty(),
+            title = from.name.orEmpty(),
             imageUrl = from.imageUrl.orEmpty()
         )
     }
