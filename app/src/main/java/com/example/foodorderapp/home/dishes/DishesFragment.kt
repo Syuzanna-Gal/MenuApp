@@ -12,6 +12,8 @@ import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.coreui.changeTabParams
 import com.example.coreui.extensions.collectWhenStarted
+import com.example.coreui.extensions.dp
+import com.example.coreui.util.AdaptiveSpacingItemDecoration
 import com.example.coreui.util.USER_PIC_IMAGE_RADIUS
 import com.example.coreui.util.USER_PIC_URL
 import com.example.foodorderapp.R
@@ -51,6 +53,7 @@ class DishesFragment : Fragment() {
         btnBack.setOnClickListener { activity?.onBackPressedDispatcher?.onBackPressed() }
         tvTitle.text = navArgs.title
         rvDishes.adapter = dishesAdapter.adapter
+        rvDishes.addItemDecoration(AdaptiveSpacingItemDecoration(8.dp))
     }
 
     private fun initObservers() {

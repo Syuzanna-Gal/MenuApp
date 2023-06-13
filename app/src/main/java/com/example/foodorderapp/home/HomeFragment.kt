@@ -10,7 +10,9 @@ import androidx.navigation.Navigation
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.coreui.extensions.collectWhenStarted
+import com.example.coreui.extensions.dp
 import com.example.coreui.extensions.getCurrentDate
+import com.example.coreui.util.AdaptiveSpacingItemDecoration
 import com.example.coreui.util.USER_PIC_IMAGE_RADIUS
 import com.example.coreui.util.USER_PIC_URL
 import com.example.foodorderapp.R
@@ -44,6 +46,7 @@ class HomeFragment() : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         initObservers()
         rvCategory.adapter = categoriesAdapter.adapter
+        rvCategory.addItemDecoration(AdaptiveSpacingItemDecoration(8.dp))
         ivUserPic.load(USER_PIC_URL) {
             transformations(RoundedCornersTransformation(USER_PIC_IMAGE_RADIUS))
         }
