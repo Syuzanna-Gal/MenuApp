@@ -1,4 +1,5 @@
 package com.example.foodorderapp.search
 
-class SearchViewModel {
-}
+import com.example.foodorderapp.core.base.BaseViewModel
+
+class SearchViewModel : BaseViewModel() {}
