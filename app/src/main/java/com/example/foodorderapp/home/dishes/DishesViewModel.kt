@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DishesViewModel @Inject constructor(
     private val getDishesUseCase: GetDishesUseCase,
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _dishesList = MutableStateFlow<List<DishUiEntity>?>(null)
     val dishesList = _dishesList.asStateFlow()
