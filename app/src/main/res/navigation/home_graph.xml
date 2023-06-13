@@ -29,7 +29,7 @@
         android:label="DishDetailsDialogFragment" >
         <argument
             android:name="dish"
-            app:argType="com.example.domain.models.DishUi" />
+            app:argType="com.example.domain.entity.DishUiEntity" />
     </dialog>
 
 </navigation>

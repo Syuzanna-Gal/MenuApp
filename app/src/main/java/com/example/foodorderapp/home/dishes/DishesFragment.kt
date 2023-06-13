@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.MarginLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import coil.load
 import coil.transform.RoundedCornersTransformation
+import com.example.coreui.changeTabParams
 import com.example.coreui.extensions.collectWhenStarted
 import com.example.coreui.util.USER_PIC_IMAGE_RADIUS
 import com.example.coreui.util.USER_PIC_URL
@@ -64,6 +64,7 @@ class DishesFragment : Fragment() {
                 tab.text = title
                 binding.tlFilters.addTab(tab)
             }
+            binding.tlFilters.changeTabParams()
         }
     }
 }
