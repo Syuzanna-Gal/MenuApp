@@ -7,7 +7,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "basket_item", [Index(value = ["created_at"])])
-data class BasketItemDb(
+data class BasketItemDbEntity(
     @PrimaryKey
     val id: Int,
     val name: String,

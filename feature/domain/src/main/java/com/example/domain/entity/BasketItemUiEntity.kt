@@ -1,6 +1,6 @@
-package com.example.domain.models
+package com.example.domain.entity
 
-class BasketItemUi(
+class BasketItemUiEntity(
     val id: Int,
     val name: String,
     val price: Int,
