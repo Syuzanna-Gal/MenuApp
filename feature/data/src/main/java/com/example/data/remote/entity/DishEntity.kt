@@ -10,6 +10,7 @@ class DishEntity(
     val description: String? = null,
     @SerialName("image_url")
     val imageUrl: String?=null,
+    @SerialName("tegs")
     val tags: List<String> = listOf()
 )
 
