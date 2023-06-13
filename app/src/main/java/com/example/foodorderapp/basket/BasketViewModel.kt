@@ -1,13 +1,18 @@
 package com.example.foodorderapp.basket
 
 import androidx.lifecycle.viewModelScope
+import com.example.domain.delegate.CurrentCityDelegate
 import com.example.domain.entity.BasketItemUiEntity
 import com.example.domain.usecase.RemoveFromBasketUseCase
 import com.example.domain.usecase.SubscribeBasketItemsUseCase
 import com.example.domain.usecase.UpdateBasketItemUseCase
 import com.example.foodorderapp.core.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,7 +20,8 @@ import javax.inject.Inject
 class BasketViewModel @Inject constructor(
     private val subscribeBasketItemsUseCase: SubscribeBasketItemsUseCase,
     private val updateBasketItemUseCase: UpdateBasketItemUseCase,
-    private val removeFromBasketUseCase: RemoveFromBasketUseCase
+    private val removeFromBasketUseCase: RemoveFromBasketUseCase,
+    val currentCityDelegate: CurrentCityDelegate,
 ) : BaseViewModel() {
 
     private val _basketItemsList = MutableStateFlow<List<BasketItemUiEntity?>?>(null)

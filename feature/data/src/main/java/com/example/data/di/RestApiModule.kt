@@ -3,6 +3,7 @@ package com.example.data.di
 import android.content.Context
 import com.example.data.BuildConfig
 import com.example.data.remote.api.MainApi
+import com.example.domain.delegate.CurrentCityDelegate
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -101,4 +102,8 @@ object RestApiModule {
     @Provides
     fun provideMainApi(retrofit: Retrofit, okHttpClient: OkHttpClient): MainApi =
         createApiService(retrofit, okHttpClient)
+
+    @Singleton
+    @Provides
+    fun provideCurrentCityDelegate() = CurrentCityDelegate()
 }

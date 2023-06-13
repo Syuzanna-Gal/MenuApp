@@ -1,9 +1,9 @@
 package com.example.foodorderapp
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
@@ -11,7 +11,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.foodorderapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -19,11 +18,41 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
 
+    private val viewModel: MainViewModel by viewModels()
+
+    @SuppressLint("MissingPermission")
+    private val locationPermissionRequest = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        when {
+            permissions.getOrDefault(android.Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                // Precise location access granted.
+                viewModel.fetchCurrentLocation(usePreciseLocation = true)
+            }
+
+            permissions.getOrDefault(android.Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                // Only approximate location access granted.
+                viewModel.fetchCurrentLocation(usePreciseLocation = false)
+            }
+
+            else -> {
+                // No location access granted.
+                //TODO: error
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupBottomNavigation()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        locationPermissionRequest.launch(locationPermissions)
     }
 
     private fun setupBottomNavigation() {
@@ -39,5 +68,12 @@ class MainActivity : AppCompatActivity() {
                 navController.popBackStack(it.startDestinationId, inclusive = false)
             }
         }
+    }
+
+    companion object {
+        private val locationPermissions = arrayOf(
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+        )
     }
 }

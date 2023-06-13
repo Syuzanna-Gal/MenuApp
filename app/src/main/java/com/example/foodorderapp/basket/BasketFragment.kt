@@ -49,6 +49,10 @@ class BasketFragment : BaseFragment<BasketViewModel>(R.layout.fragment_basket) {
                     getString(com.example.coreui.R.string.pay).format(it.toInt().toString())
             }
         }
+
+        collectWhenStarted(viewModel.currentCityDelegate.currentCity) {
+            binding.tvAddress.text = it
+        }
     }
 
 }

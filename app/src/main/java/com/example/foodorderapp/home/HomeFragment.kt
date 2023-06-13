@@ -43,5 +43,8 @@ class HomeFragment() : BaseFragment<HomeViewModel>(R.layout.fragment_home) {
                 categoriesAdapter.adapter.submitList(it)
             }
         }
+        collectWhenStarted(viewModel.currentCityDelegate.currentCity) {
+            binding.tvAddress.text = it
+        }
     }
 }

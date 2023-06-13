@@ -7,6 +7,6 @@ import java.util.*
 
 fun getCurrentDate(): String {
     val time = Calendar.getInstance().time
-    val formatter = SimpleDateFormat(DATE_FORMAT, Locale(DATE_LOCALE_TYPE))
+    val formatter = SimpleDateFormat(DATE_FORMAT, DATE_LOCALE_TYPE)
     return formatter.format(time)
 }
