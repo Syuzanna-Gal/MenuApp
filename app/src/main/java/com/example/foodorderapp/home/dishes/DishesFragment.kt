@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.MarginLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -55,6 +56,14 @@ class DishesFragment : Fragment() {
     private fun initObservers() {
         collectWhenStarted(viewModel.dishesList) {
             dishesAdapter.adapter.submitList(it)
+        }
+
+        collectWhenStarted(viewModel.tagsList) {
+            it?.forEach { title ->
+                val tab = binding.tlFilters.newTab()
+                tab.text = title
+                binding.tlFilters.addTab(tab)
+            }
         }
     }
 }

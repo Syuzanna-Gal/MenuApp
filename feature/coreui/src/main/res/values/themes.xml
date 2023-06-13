@@ -45,7 +45,22 @@
         <item name="backgroundTint">@color/royalBlue</item>
     </style>
 
+    <style name="TabLayoutSelectedStyle" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textAppearance">@style/TextStyleMedium16</item>
+        <item name="background">@drawable/bg_cultured_rounded_10</item>
+    </style>
+
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/bg_rounded_white_10</item>
     </style>
+
+    <style name="MainTabLayoutStyle" parent="Widget.Design.TabLayout">
+        <item name="tabMaxWidth">@dimen/dp_0</item>
+        <item name="tabIndicator">@null</item>
+        <item name="tabRippleColor">@null</item>
+        <item name="tabIndicatorColor">@null</item>
+
+    </style>
+
 </resources>

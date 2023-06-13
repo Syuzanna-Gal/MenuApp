@@ -13,6 +13,9 @@ class DishesViewModel @Inject constructor() : ViewModel() {
     private val _dishesList = MutableStateFlow<List<DishUi>?>(null)
     val dishesList = _dishesList.asStateFlow()
 
+    private val _tagsList = MutableStateFlow<List<String>?>(null)
+    val tagsList = _tagsList.asStateFlow()
+
     fun getDishesList() {
         _dishesList.value =
             listOf(
@@ -90,5 +93,7 @@ class DishesViewModel @Inject constructor() : ViewModel() {
                     tags = listOf()
                 )
             )
+
+        _tagsList.value = listOf("aaaa", "bbbbb", "ccccccc", "dddddddddddd")
     }
 }
