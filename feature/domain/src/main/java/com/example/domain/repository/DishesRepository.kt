@@ -4,7 +4,5 @@ import com.example.domain.entity.DishUiEntity
 import kotlinx.coroutines.flow.Flow
 
 interface DishesRepository {
-
-    //NOTE: maybe multiple select? need to figure out
-    fun fetchDishes(tag: String): Flow<List<DishUiEntity>>
+    fun fetchDishes(): Flow<List<DishUiEntity>>
 }

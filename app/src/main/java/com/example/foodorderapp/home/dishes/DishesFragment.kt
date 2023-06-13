@@ -45,7 +45,6 @@ class DishesFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
-        viewModel.getDishesList()
         initObservers()
         ivUserPic.load(USER_PIC_URL) {
             transformations(RoundedCornersTransformation(USER_PIC_IMAGE_RADIUS))

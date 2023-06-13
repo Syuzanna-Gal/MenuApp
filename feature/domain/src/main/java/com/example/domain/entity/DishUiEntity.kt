@@ -7,8 +7,8 @@ import kotlinx.parcelize.Parcelize
 class DishUiEntity(
     val id: Int,
     val name: String,
-    val price: Int,
-    val weight: Int,
+    val price: Double,
+    val weight: Double,
     val description: String,
     val imageUrl: String,
     val tags: List<String>

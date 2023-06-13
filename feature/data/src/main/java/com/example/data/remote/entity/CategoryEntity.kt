@@ -14,7 +14,7 @@ class CategoryEntity(
 
 @Serializable
 class CategoriesEntity(
-    // NOTE: c letter is Russian, we should tak into account that
+    // NOTE: c letter is Russian, we should take into account that
     @SerialName("сategories")
     val categories: List<CategoryEntity>
 )
