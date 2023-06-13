@@ -19,7 +19,7 @@ interface BasketItemDao {
     fun sumOfQuantityAsFlow(): Flow<Int>
 
     @Query("SELECT * FROM basket_item WHERE id = :productId")
-    fun findById(productId: Int): Flow<BasketItemDbEntity?>
+    fun findById(productId: Int): BasketItemDbEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(basketItem: BasketItemDbEntity)

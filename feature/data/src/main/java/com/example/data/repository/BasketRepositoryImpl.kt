@@ -8,6 +8,7 @@ import com.example.domain.entity.BasketItemUiEntity
 import com.example.domain.entity.DishUiEntity
 import com.example.domain.repository.BasketRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -38,7 +39,7 @@ class BasketRepositoryImpl @Inject constructor(private val basketItemDao: Basket
         }
     }
 
-    override fun getBasketItemById(id: Int): Flow<BasketItemUiEntity?> = basketItemDao.findById(id)
-        .map { currentBasketItem -> currentBasketItem?.let { MapperBasketItemToUiEntity().map(it) } }
-
+    override fun getBasketItemById(id: Int): Flow<BasketItemUiEntity?> = flow {
+        emit(basketItemDao.findById(id)?.let { MapperBasketItemToUiEntity().map(it) })
+    }
 }
