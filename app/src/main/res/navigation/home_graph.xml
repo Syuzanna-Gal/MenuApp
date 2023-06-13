@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_graph"
     app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.foodorderapp.home.HomeFragment" >
+        android:name="com.example.foodorderapp.home.HomeFragment"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/toDishesFragment"
             app:destination="@id/dishesFragment" />
@@ -14,7 +16,9 @@
 
     <fragment
         android:id="@+id/dishesFragment"
-        android:name="com.example.foodorderapp.home.dishes.DishesFragment" >
+        android:name="com.example.foodorderapp.home.dishes.DishesFragment"
+        tools:layout="@layout/fragment_dishes">
+
         <argument
             android:name="title"
             app:argType="string" />
@@ -26,10 +30,10 @@
     <dialog
         android:id="@+id/dishDetailsDialogFragment"
         android:name="com.example.foodorderapp.home.dishes.dishDetailsDialog.DishDetailsDialogFragment"
-        android:label="DishDetailsDialogFragment" >
+        tools:layout="@layout/dialog_dish_details">
         <argument
             android:name="dish"
-            app:argType="com.example.domain.models.DishUi" />
+            app:argType="com.example.domain.entity.DishUiEntity" />
     </dialog>
 
 </navigation>

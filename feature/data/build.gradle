@@ -57,6 +57,8 @@ android {
 
 dependencies {
 
+    implementation project(":feature:domain")
+
     implementation 'androidx.core:core-ktx:1.10.1'
 
     //hilt
