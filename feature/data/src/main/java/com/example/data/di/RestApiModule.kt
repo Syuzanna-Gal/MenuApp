@@ -1,7 +1,7 @@
 package com.example.data.di
 
 import com.example.data.BuildConfig
-import com.example.data.network.MainApi
+import com.example.data.remote.api.MainApi
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
