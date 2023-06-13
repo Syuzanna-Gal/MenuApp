@@ -19,6 +19,7 @@ import com.example.coreui.util.USER_PIC_URL
 import com.example.foodorderapp.R
 import com.example.foodorderapp.databinding.FragmentDishesBinding
 import com.example.foodorderapp.home.adapter.DishesAdapter
+import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,6 +54,20 @@ class DishesFragment : Fragment() {
         tvTitle.text = navArgs.title
         rvDishes.adapter = dishesAdapter.adapter
         rvDishes.addItemDecoration(AdaptiveSpacingItemDecoration(8.dp))
+        //TODO: I principe in the SOLID
+        tlFilters.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                viewModel.updateDishesAccordingTag(tab.text.toString())
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab) {
+
+            }
+        })
     }
 
     private fun initObservers() {

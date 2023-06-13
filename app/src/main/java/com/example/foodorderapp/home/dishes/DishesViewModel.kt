@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,6 +24,8 @@ class DishesViewModel @Inject constructor(
     private val _tagsList = MutableStateFlow<Set<String>?>(null)
     val tagsList = _tagsList.asStateFlow()
 
+    private var _allDishes = listOf<DishUiEntity>()
+
     init {
         getDishesList()
     }
@@ -32,10 +35,17 @@ class DishesViewModel @Inject constructor(
             .onEach { dishes ->
                 _tagsList.value =
                     dishes.flatMap { it.tags }.toSet()
+                _allDishes = dishes
                 _dishesList.value = dishes
             }
             .catch {
                 it.printStackTrace()
             }.launchIn(viewModelScope)
+    }
+
+    fun updateDishesAccordingTag(tagTitle: String) {
+        _dishesList.update {
+            _allDishes.filter { it.tags.contains(tagTitle) }
+        }
     }
 }
