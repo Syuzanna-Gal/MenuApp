@@ -1,6 +1,6 @@
-package com.example.domain.models
+package com.example.domain.entity
 
-class CategoryUi(
+class CategoryUiEntity(
     val id: Int,
     val imageUrl: String,
     val title: String

@@ -1,10 +1,10 @@
-package com.example.domain.models
+package com.example.domain.entity
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class DishUi(
+class DishUiEntity(
     val id: Int,
     val name: String,
     val price: Int,

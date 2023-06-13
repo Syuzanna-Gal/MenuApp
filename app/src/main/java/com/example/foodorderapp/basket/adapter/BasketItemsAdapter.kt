@@ -7,7 +7,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.example.domain.models.BasketItemUi
+import com.example.domain.entity.BasketItemUiEntity
 import com.example.foodorderapp.R
 import com.example.foodorderapp.databinding.ItemInBasketBinding
 import me.ibrahimyilmaz.kiel.adapterOf
@@ -22,7 +22,7 @@ class BasketItemsAdapter(
         private const val IMAGE_CORNER_RADIUS = 10F
     }
 
-    val adapter = adapterOf<BasketItemUi> {
+    val adapter = adapterOf<BasketItemUiEntity> {
         diff(
             areItemsTheSame = { old, new ->
                 old.id == new.id
@@ -44,11 +44,11 @@ class BasketItemsAdapter(
         view: View,
         private val onRemoveClick: () -> Unit,
         private val onAddClick: () -> Unit
-    ) : RecyclerViewHolder<BasketItemUi>(view) {
+    ) : RecyclerViewHolder<BasketItemUiEntity>(view) {
 
         private val binding = ItemInBasketBinding.bind(view)
 
-        fun onBind(item: BasketItemUi) = with(binding) {
+        fun onBind(item: BasketItemUiEntity) = with(binding) {
             tvName.text = item.name
             ivDish.load(item.imageUrl) {
                 transformations(RoundedCornersTransformation((IMAGE_CORNER_RADIUS * itemView.context.resources.displayMetrics.density)))

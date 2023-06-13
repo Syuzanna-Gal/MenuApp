@@ -3,7 +3,7 @@ package com.example.foodorderapp.home.adapter
 import android.view.View
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.example.domain.models.CategoryUi
+import com.example.domain.entity.CategoryUiEntity
 import com.example.foodorderapp.R
 import com.example.foodorderapp.databinding.ItemCategoryBinding
 import me.ibrahimyilmaz.kiel.adapterOf
@@ -17,7 +17,7 @@ class CategoryAdapter(
         private const val IMAGE_CORNER_RADIUS = 10F
     }
 
-    val adapter = adapterOf<CategoryUi> {
+    val adapter = adapterOf<CategoryUiEntity> {
         diff(
             areItemsTheSame = { old, new ->
                 old.id == new.id
@@ -38,11 +38,11 @@ class CategoryAdapter(
     class CategoryViewHolder(
         view: View,
         private val onCategoryClick: (String) -> Unit
-    ) : RecyclerViewHolder<CategoryUi>(view) {
+    ) : RecyclerViewHolder<CategoryUiEntity>(view) {
 
         private val binding = ItemCategoryBinding.bind(view)
 
-        fun onBind(item: CategoryUi) = with(binding) {
+        fun onBind(item: CategoryUiEntity) = with(binding) {
             tvCategoryName.text = item.title
             ivCategoryImage.load(item.imageUrl) {
                 transformations(RoundedCornersTransformation((IMAGE_CORNER_RADIUS * itemView.context.resources.displayMetrics.density)))
