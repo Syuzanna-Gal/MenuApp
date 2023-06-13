@@ -8,11 +8,12 @@ class CategoryEntity(
     val id: Int,
     @SerialName("image_url")
     val imageUrl: String? = null,
-    val title: String? = null
+    val name: String? = null
 )
 
 
 @Serializable
 class CategoriesEntity(
+    @SerialName("сategories")
     val categories: List<CategoryEntity>
 )
