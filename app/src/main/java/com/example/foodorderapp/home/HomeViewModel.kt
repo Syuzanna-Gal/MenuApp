@@ -29,7 +29,9 @@ class HomeViewModel @Inject constructor(
             .onEach {
                 _categoriesList.value = it
             }
-            .catch { }
+            .catch {
+                it.printStackTrace()
+            }
             .launchIn(viewModelScope)
     }
 }
