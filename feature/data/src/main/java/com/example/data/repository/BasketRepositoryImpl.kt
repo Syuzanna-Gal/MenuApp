@@ -16,8 +16,10 @@ import javax.inject.Singleton
 class BasketRepositoryImpl @Inject constructor(private val basketItemDao: BasketItemDao) :
     BasketRepository {
 
-    override fun subscribeBasketItems(): Flow<List<BasketItemUiEntity?>> =
-        basketItemDao.findAllAsFlow().map { MapperBasketItemToUiEntity().map(it) }
+    override fun subscribeBasketItems(): Flow<List<BasketItemUiEntity>> =
+        basketItemDao.findAllAsFlow().map {
+            MapperBasketItemToUiEntity().map(it)
+        }
 
 
     override suspend fun addToBasket(dishUiEntity: DishUiEntity, quantity: Int) {
@@ -25,18 +27,18 @@ class BasketRepositoryImpl @Inject constructor(private val basketItemDao: Basket
     }
 
     override suspend fun deleteFromBasket(basketItemUiEntity: BasketItemUiEntity) {
-        MapperBasketItemToDbEntity().map(basketItemUiEntity)?.let {
+        MapperBasketItemToDbEntity().map(basketItemUiEntity).let {
             basketItemDao.delete(it)
         }
     }
 
     override suspend fun updateBasketItem(basketItemUiEntity: BasketItemUiEntity) {
-        MapperBasketItemToDbEntity().map(basketItemUiEntity)?.let {
+        MapperBasketItemToDbEntity().map(basketItemUiEntity).let {
             basketItemDao.update(it)
         }
     }
 
     override fun getBasketItemById(id: Int): Flow<BasketItemUiEntity?> = basketItemDao.findById(id)
-        .map { MapperBasketItemToUiEntity().map(it) }
+        .map { currentBasketItem -> currentBasketItem?.let { MapperBasketItemToUiEntity().map(it) } }
 
 }
