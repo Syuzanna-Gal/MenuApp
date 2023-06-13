@@ -1,33 +1,28 @@
 package com.example.foodorderapp.home.dishes
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.coreui.changeTabParams
+import com.example.coreui.delegate.viewBinding
 import com.example.coreui.extensions.collectWhenStarted
 import com.example.coreui.extensions.dp
 import com.example.coreui.util.AdaptiveSpacingItemDecoration
 import com.example.coreui.util.USER_PIC_IMAGE_RADIUS
 import com.example.coreui.util.USER_PIC_URL
 import com.example.foodorderapp.R
+import com.example.foodorderapp.core.base.BaseFragment
 import com.example.foodorderapp.databinding.FragmentDishesBinding
 import com.example.foodorderapp.home.adapter.DishesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DishesFragment : Fragment() {
+class DishesFragment : BaseFragment<DishesViewModel>(R.layout.fragment_dishes) {
 
-    private val binding by lazy {
-        FragmentDishesBinding.inflate(LayoutInflater.from(requireContext()))
-    }
-    private val viewModel: DishesViewModel by viewModels()
+    private val binding by viewBinding(FragmentDishesBinding::bind)
+    override val viewModel: DishesViewModel by viewModels()
     private val navArgs by navArgs<DishesFragmentArgs>()
     private val dishesAdapter by lazy {
         DishesAdapter(onDishClick = {
@@ -36,17 +31,7 @@ class DishesFragment : Fragment() {
         })
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
-        viewModel.getDishesList()
-        initObservers()
+    override fun initView() = with(binding) {
         ivUserPic.load(USER_PIC_URL) {
             transformations(RoundedCornersTransformation(USER_PIC_IMAGE_RADIUS))
         }
@@ -56,7 +41,7 @@ class DishesFragment : Fragment() {
         rvDishes.addItemDecoration(AdaptiveSpacingItemDecoration(8.dp))
     }
 
-    private fun initObservers() {
+    override fun initObservers() {
         collectWhenStarted(viewModel.dishesList) {
             dishesAdapter.adapter.submitList(it)
         }

@@ -2,13 +2,14 @@ package com.example.foodorderapp.basket
 
 import androidx.lifecycle.ViewModel
 import com.example.domain.entity.BasketItemUiEntity
+import com.example.foodorderapp.core.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class BasketViewModel @Inject constructor() : ViewModel() {
+class BasketViewModel @Inject constructor() : BaseViewModel() {
 
     private val _basketItemsList = MutableStateFlow<List<BasketItemUiEntity>?>(null)
     val basketItemsList = _basketItemsList.asStateFlow()

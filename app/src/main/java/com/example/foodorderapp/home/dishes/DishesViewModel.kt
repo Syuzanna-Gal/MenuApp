@@ -1,14 +1,14 @@
 package com.example.foodorderapp.home.dishes
 
-import androidx.lifecycle.ViewModel
 import com.example.domain.entity.DishUiEntity
+import com.example.foodorderapp.core.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class DishesViewModel @Inject constructor() : ViewModel() {
+class DishesViewModel @Inject constructor() : BaseViewModel() {
 
     private val _dishesList = MutableStateFlow<List<DishUiEntity>?>(null)
     val dishesList = _dishesList.asStateFlow()
