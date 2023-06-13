@@ -27,8 +27,7 @@ class DishesFragment : BaseFragment<DishesViewModel>(R.layout.fragment_dishes) {
     private val navArgs by navArgs<DishesFragmentArgs>()
     private val dishesAdapter by lazy {
         DishesAdapter(onDishClick = {
-            Navigation.findNavController(requireActivity(), R.id.mainNavContainer)
-                .navigate(DishesFragmentDirections.toDishDetailsDialogFragment(it))
+            viewModel.navigateToDishDetails(it)
         })
     }
 
@@ -39,7 +38,7 @@ class DishesFragment : BaseFragment<DishesViewModel>(R.layout.fragment_dishes) {
         btnBack.setOnClickListener { activity?.onBackPressedDispatcher?.onBackPressed() }
         tvTitle.text = navArgs.title
         rvDishes.adapter = dishesAdapter.adapter
-        rvDishes.addItemDecoration(AdaptiveSpacingItemDecoration(8.dp))
+        rvDishes.addItemDecoration(AdaptiveSpacingItemDecoration(8.dp, edgeEnabled = true))
         //TODO: I principe in the SOLID
         tlFilters.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {

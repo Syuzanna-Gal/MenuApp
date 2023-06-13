@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.entity.CategoryUiEntity
 import com.example.domain.usecase.GetCategoryUseCase
 import com.example.foodorderapp.core.base.BaseViewModel
+import com.example.foodorderapp.core.navigation.Command
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -30,4 +31,10 @@ class HomeViewModel @Inject constructor(
             }
             .launchIn(viewModelScope)
     }
+
+    fun navigateToDishFragment(title: String) {
+        val dir = HomeFragmentDirections.toDishesFragment(title)
+        sendCommand(Command.NavCommand(dir))
+    }
+
 }

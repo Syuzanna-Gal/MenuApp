@@ -1,11 +1,6 @@
 package com.example.foodorderapp.home
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.coreui.delegate.viewBinding
@@ -29,14 +24,13 @@ class HomeFragment() : BaseFragment<HomeViewModel>(R.layout.fragment_home) {
 
     private val categoriesAdapter by lazy {
         CategoryAdapter(onCategoryClick = {
-            Navigation.findNavController(requireActivity(), R.id.mainNavContainer)
-                .navigate(HomeFragmentDirections.toDishesFragment(it))
+            viewModel.navigateToDishFragment(it)
         })
     }
 
     override fun initView() = with(binding) {
         rvCategory.adapter = categoriesAdapter.adapter
-        rvCategory.addItemDecoration(AdaptiveSpacingItemDecoration(8.dp))
+        rvCategory.addItemDecoration(AdaptiveSpacingItemDecoration(8.dp, edgeEnabled = true))
         ivUserPic.load(USER_PIC_URL) {
             transformations(RoundedCornersTransformation(USER_PIC_IMAGE_RADIUS))
         }

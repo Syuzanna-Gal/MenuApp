@@ -1,17 +1,12 @@
 package com.example.foodorderapp.home.dishes
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.entity.DishUiEntity
 import com.example.domain.usecase.GetDishesUseCase
 import com.example.foodorderapp.core.base.BaseViewModel
+import com.example.foodorderapp.core.navigation.Command
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -49,4 +44,10 @@ class DishesViewModel @Inject constructor(
             _allDishes.filter { it.tags.contains(tagTitle) }
         }
     }
+
+    fun navigateToDishDetails(dish: DishUiEntity) {
+        val dir = DishesFragmentDirections.toDishDetailsDialogFragment(dish)
+        sendCommand(Command.NavCommand(dir))
+    }
+
 }

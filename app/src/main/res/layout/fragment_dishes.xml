@@ -9,6 +9,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageButton
@@ -37,10 +38,9 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tlFilters"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginStart="16dp"
+        android:layout_height="@dimen/dp_35"
+        android:layout_marginStart="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_24"
-        android:layout_marginEnd="@dimen/dp_16"
         android:background="@android:color/transparent"
         android:foregroundGravity="fill"
         android:isScrollContainer="true"
@@ -63,9 +63,8 @@
         android:id="@+id/rvDishes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginHorizontal="@dimen/dp_8"
         android:layout_marginTop="@dimen/dp_16"
-        android:layout_marginEnd="@dimen/dp_8"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="3" />
