@@ -1,11 +1,13 @@
 package com.example.data.di
 
+import android.content.Context
 import com.example.data.BuildConfig
 import com.example.data.remote.api.MainApi
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -14,6 +16,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -33,7 +36,7 @@ object RestApiModule {
 
     @Singleton
     @Provides
-    fun provideSecureOkHttpClient(
+    fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
         cache: Cache,
     ): OkHttpClient = OkHttpClient.Builder()
@@ -84,6 +87,14 @@ object RestApiModule {
         okHttpClient: OkHttpClient
     ): T {
         return retrofit.newBuilder().client(okHttpClient).build().create(T::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideCache(@ApplicationContext context: Context): Cache {
+        val cacheSize = 10 * 1024 * 1024.toLong() // 10 MB
+        val httpCacheDirectory = File(context.cacheDir, "http-cache")
+        return Cache(httpCacheDirectory, cacheSize)
     }
 
     @Singleton

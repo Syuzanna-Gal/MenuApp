@@ -14,6 +14,6 @@ class CategoryRepositoryImpl @Inject constructor(private val mainApi: MainApi) :
     CategoryRepository {
     override fun fetchCategories(): Flow<List<CategoryUiEntity>> = flow {
         val result = mainApi.fetchCategories()
-        emit(MapperCategoryToUiEntity().map(result.сategories))
+        emit(MapperCategoryToUiEntity().map(result.categories))
     }
 }
