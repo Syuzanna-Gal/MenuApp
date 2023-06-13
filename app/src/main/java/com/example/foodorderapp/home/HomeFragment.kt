@@ -42,7 +42,6 @@ class HomeFragment() : Fragment(R.layout.fragment_home) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
-        viewModel.getCategoriesList()
         initObservers()
         rvCategory.adapter = categoriesAdapter.adapter
         ivUserPic.load(USER_PIC_URL) {
