@@ -9,6 +9,7 @@ import com.example.coreui.delegate.viewBinding
 import com.example.coreui.extensions.collectWhenStarted
 import com.example.coreui.extensions.dp
 import com.example.coreui.extensions.getCurrentDate
+import com.example.coreui.extensions.toSpacedFormat
 import com.example.coreui.util.AdaptiveSpacingItemDecoration
 import com.example.coreui.util.USER_PIC_IMAGE_RADIUS
 import com.example.coreui.util.USER_PIC_URL
@@ -64,7 +65,7 @@ class BasketFragment : BaseFragment<BasketViewModel>(R.layout.fragment_basket) {
         collectWhenStarted(viewModel.paymentAmount) {
             it?.let {
                 binding.btnPay.text =
-                    getString(RString.pay).format(it.toInt().toString())
+                    getString(RString.pay).format(it.toInt().toSpacedFormat())
             }
         }
 
