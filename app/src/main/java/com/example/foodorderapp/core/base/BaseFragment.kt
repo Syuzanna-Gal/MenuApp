@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import androidx.navigation.*
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.coreui.extensions.collectWhenStarted
 import com.example.coreui.extensions.navigateSafe
@@ -33,10 +34,7 @@ abstract class BaseFragment<VM>(@LayoutRes layout: Int) : Fragment(layout)
         when (command) {
             is Command.FinishAppCommand -> activity?.finishAffinity()
             is Command.NavigateUpCommand -> navController?.popBackStack()
-            is Command.NavCommand -> if (command.isNested)
-                getParentNavController()?.navigateSafe(command.navDirections)
-            else
-                navController?.navigateSafe(command.navDirections)
+            is Command.NavCommand -> navController?.navigateSafe(command.navDirections)
         }
     }
 
@@ -48,7 +46,4 @@ abstract class BaseFragment<VM>(@LayoutRes layout: Int) : Fragment(layout)
         e.printStackTrace()
         null
     }
-
-    private fun getParentNavController() = parentFragment?.parentFragment
-        ?.parentFragmentManager?.primaryNavigationFragment?.findNavController()
 }

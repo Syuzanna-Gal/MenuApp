@@ -6,6 +6,7 @@ import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.coreui.extensions.collectWhenStarted
 import com.example.coreui.extensions.navigateSafe
@@ -18,7 +19,7 @@ abstract class BaseDialogFragment<VM : BaseViewModel>(@LayoutRes layout: Int) :
     abstract val viewModel: VM
 
     private var navController: NavController? = null
-
+    protected open val navControllerRes: Int? = null
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         setStyle(STYLE_NORMAL, RStyle.DialogTheme)
         return super.onCreateDialog(savedInstanceState)
@@ -26,7 +27,7 @@ abstract class BaseDialogFragment<VM : BaseViewModel>(@LayoutRes layout: Int) :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController = findNavController()
+        navController = getNavController()
         collectWhenStarted(viewModel.command) { processCommand(it) }
         initView()
         initObservers()
@@ -39,13 +40,18 @@ abstract class BaseDialogFragment<VM : BaseViewModel>(@LayoutRes layout: Int) :
         when (command) {
             is Command.FinishAppCommand -> activity?.finishAffinity()
             is Command.NavigateUpCommand -> navController?.popBackStack()
-            is Command.NavCommand -> if (command.isNested)
-                getParentNavController()?.navigateSafe(command.navDirections)
-            else
+            is Command.NavCommand -> {
                 navController?.navigateSafe(command.navDirections)
+            }
         }
     }
 
-    private fun getParentNavController() = parentFragment?.parentFragment
-        ?.parentFragmentManager?.primaryNavigationFragment?.findNavController()
+    private fun getNavController() = try {
+        navControllerRes?.let { resId ->
+            Navigation.findNavController(requireActivity(), resId)
+        } ?: findNavController()
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
 }
