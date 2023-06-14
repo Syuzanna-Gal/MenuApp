@@ -2,6 +2,7 @@ package com.example.foodorderapp
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -10,10 +11,15 @@ import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.foodorderapp.databinding.ActivityMainBinding
+import com.example.foodorderapp.util.info.InfoBottomSheetDialog
+import com.example.foodorderapp.util.info.InfoDialogArgs
+import com.example.foodorderapp.util.info_event.InfoEventCollector
+import com.example.foodorderapp.util.info_event.InfoEventCollectorImpl
+import com.example.foodorderapp.util.type_alias.RString
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),  InfoEventCollector by InfoEventCollectorImpl() {
 
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
@@ -37,7 +43,16 @@ class MainActivity : AppCompatActivity() {
 
             else -> {
                 // No location access granted.
-                //TODO: error
+                val args =
+                    InfoDialogArgs(
+                        title = getString(R.string.something_went_wrong),
+                        message = getString(RString.location_permission_error),
+                        buttonText = getString(RString.settings)
+                    )
+
+                InfoBottomSheetDialog
+                    .newInstance(args)
+                    .show(this.supportFragmentManager, InfoBottomSheetDialog.TAG)
             }
         }
     }
@@ -47,11 +62,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupBottomNavigation()
-
-    }
-
-    override fun onResume() {
-        super.onResume()
         locationPermissionRequest.launch(locationPermissions)
     }
 

@@ -7,13 +7,13 @@ import com.example.domain.usecase.RemoveAllBasketItemsUseCase
 import com.example.domain.usecase.RemoveFromBasketUseCase
 import com.example.domain.usecase.SubscribeBasketItemsUseCase
 import com.example.domain.usecase.UpdateBasketItemUseCase
+import com.example.foodorderapp.R
 import com.example.foodorderapp.core.base.BaseViewModel
+import com.example.foodorderapp.util.TextSource
+import com.example.foodorderapp.util.event.InfoEvent
+import com.example.foodorderapp.util.type_alias.RString
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,25 +43,61 @@ class BasketViewModel @Inject constructor(
                 getPaymentAmount(basketItems)
             }
             .catch {
-                it.printStackTrace()
+                emitInfoEvent(
+                    InfoEvent.Info(
+                        title = TextSource.Resource(R.string.something_went_wrong),
+                        message = TextSource.Dynamic(it.message ?: ""),
+                        buttonText = TextSource.Resource(R.string.ok)
+                    )
+                )
             }.launchIn(viewModelScope)
     }
 
     fun addItem(basketItemUiEntity: BasketItemUiEntity) {
         viewModelScope.launch {
-            updateBasketItemUseCase(basketItemUiEntity)
+            try {
+                updateBasketItemUseCase(basketItemUiEntity)
+            } catch (e: java.lang.Exception) {
+                emitInfoEvent(
+                    InfoEvent.Info(
+                        title = TextSource.Resource(R.string.something_went_wrong),
+                        message = TextSource.Resource(RString.update_item_error),
+                        buttonText = TextSource.Resource(R.string.ok)
+                    )
+                )
+            }
         }
     }
 
     fun removeItem(basketItemUiEntity: BasketItemUiEntity) {
         viewModelScope.launch {
-            removeFromBasketUseCase(basketItemUiEntity)
+            try {
+                removeFromBasketUseCase(basketItemUiEntity)
+            } catch (e: java.lang.Exception) {
+                emitInfoEvent(
+                    InfoEvent.Info(
+                        title = TextSource.Resource(R.string.something_went_wrong),
+                        message = TextSource.Resource(RString.remove_item_error),
+                        buttonText = TextSource.Resource(R.string.ok)
+                    )
+                )
+            }
         }
     }
 
     fun removeAll() {
         viewModelScope.launch {
-            removeAllBasketItemsUseCase.invoke()
+            try {
+                removeAllBasketItemsUseCase.invoke()
+            } catch (e: java.lang.Exception) {
+                emitInfoEvent(
+                    InfoEvent.Info(
+                        title = TextSource.Resource(R.string.something_went_wrong),
+                        message = TextSource.Resource(com.example.coreui.R.string.remove_all_items_error),
+                        buttonText = TextSource.Resource(R.string.ok)
+                    )
+                )
+            }
         }
     }
 

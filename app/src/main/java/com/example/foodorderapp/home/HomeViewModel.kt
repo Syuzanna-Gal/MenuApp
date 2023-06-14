@@ -4,14 +4,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.delegate.CurrentAddressDelegate
 import com.example.domain.entity.CategoryUiEntity
 import com.example.domain.usecase.GetCategoryUseCase
+import com.example.foodorderapp.R
 import com.example.foodorderapp.core.base.BaseViewModel
 import com.example.foodorderapp.core.navigation.Command
+import com.example.foodorderapp.util.TextSource
+import com.example.foodorderapp.util.event.InfoEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,7 +32,13 @@ class HomeViewModel @Inject constructor(
                 _categoriesList.value = it
             }
             .catch {
-                it.printStackTrace()
+                emitInfoEvent(
+                    InfoEvent.Info(
+                        title = TextSource.Resource(R.string.something_went_wrong),
+                        message = TextSource.Dynamic(it.message ?: ""),
+                        buttonText = TextSource.Resource(R.string.ok)
+                    )
+                )
             }
             .launchIn(viewModelScope)
     }

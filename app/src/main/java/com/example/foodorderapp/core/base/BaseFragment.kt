@@ -10,8 +10,11 @@ import androidx.navigation.fragment.findNavController
 import com.example.coreui.extensions.collectWhenStarted
 import com.example.coreui.extensions.navigateSafe
 import com.example.foodorderapp.core.navigation.Command
+import com.example.foodorderapp.util.info_event.InfoEventCollector
+import com.example.foodorderapp.util.info_event.InfoEventCollectorImpl
 
-abstract class BaseFragment<VM>(@LayoutRes layout: Int) : Fragment(layout)
+abstract class BaseFragment<VM>(@LayoutRes layout: Int) : Fragment(layout),
+    InfoEventCollector by InfoEventCollectorImpl()
         where VM : BaseViewModel {
 
     abstract val viewModel: VM
@@ -23,6 +26,7 @@ abstract class BaseFragment<VM>(@LayoutRes layout: Int) : Fragment(layout)
         super.onViewCreated(view, savedInstanceState)
         navController = getNavController()
         collectWhenStarted(viewModel.command, ::processCommand)
+        collectInfoEvents(host = this, viewModel.infoEvent)
         initView()
         initObservers()
     }

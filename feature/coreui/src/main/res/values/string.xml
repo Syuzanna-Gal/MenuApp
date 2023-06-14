@@ -8,5 +8,14 @@
     <string name="price_and_weight">%s ₽ · %sг</string>
     <string name="pay">Оплатить %s ₽</string>
     <string name="basket_is_empty">В корзине пока нечего нет</string>
-    <string name="payed_successfully">Ура! оплачено</string>
+    <string name="payed_successfully_title">Спасибо!</string>
+    <string name="payed_successfully_desc">Ваш заказ оплачен</string>
+    <string name="ok">Ok</string>
+    <string name="get_item_error">Не можем найти продукт</string>
+    <string name="update_item_error">Не можем обнавлять продукт</string>
+    <string name="add_item_error">Не можем добавить продукт</string>
+    <string name="remove_item_error">Не можем удалить продукт</string>
+    <string name="remove_all_items_error">Не можем удалить все продукти</string>
+    <string name="location_permission_error">Дайте разрешение, чтобы могли продолжать</string>
+    <string name="settings">Настройки</string>
 </resources>

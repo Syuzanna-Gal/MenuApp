@@ -1,17 +1,18 @@
 package com.example.foodorderapp.home.dishes.dish_details_dialog
 
 import androidx.lifecycle.viewModelScope
+import com.example.domain.entity.BasketItemUiEntity
 import com.example.domain.entity.DishUiEntity
 import com.example.domain.usecase.AddToBasketUseCase
 import com.example.domain.usecase.GetBasketItemByIdUseCase
 import com.example.domain.usecase.UpdateBasketItemUseCase
+import com.example.foodorderapp.R
 import com.example.foodorderapp.core.base.BaseViewModel
-import com.example.foodorderapp.core.navigation.Command
+import com.example.foodorderapp.util.TextSource
+import com.example.foodorderapp.util.event.InfoEvent
+import com.example.foodorderapp.util.type_alias.RString
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,24 +24,45 @@ class DishDetailsDialogViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     fun addToBasket(dishUiEntity: DishUiEntity) {
-        viewModelScope.launch(Dispatchers.IO){
-            val basketItem = getBasketItemByIdUseCase.invoke(dishUiEntity.id)
-            if (basketItem != null) {
-                updateBasketItemUseCase.invoke(basketItem)
-            } else {
-                addToBasketUseCase.invoke(dishUiEntity, 1)
+        viewModelScope.launch(Dispatchers.IO) {
+            var basketItem: BasketItemUiEntity? = null
+            try {
+                basketItem = getBasketItemByIdUseCase.invoke(dishUiEntity.id)
+            } catch (e: java.lang.Exception) {
+                emitInfoEvent(
+                    InfoEvent.Info(
+                        title = TextSource.Resource(R.string.something_went_wrong),
+                        message = TextSource.Resource(RString.get_item_error),
+                        buttonText = TextSource.Resource(R.string.ok)
+                    )
+                )
             }
-        }
 
-            /*.onEach { basketItem ->
-                if (basketItem != null) {
+            if (basketItem != null) {
+                try {
                     updateBasketItemUseCase.invoke(basketItem)
-                } else {
+                } catch (e: java.lang.Exception) {
+                    emitInfoEvent(
+                        InfoEvent.Info(
+                            title = TextSource.Resource(R.string.something_went_wrong),
+                            message = TextSource.Resource(RString.update_item_error),
+                            buttonText = TextSource.Resource(R.string.ok)
+                        )
+                    )
+                }
+            } else {
+                try {
                     addToBasketUseCase.invoke(dishUiEntity, 1)
+                } catch (e: java.lang.Exception) {
+                    emitInfoEvent(
+                        InfoEvent.Info(
+                            title = TextSource.Resource(R.string.something_went_wrong),
+                            message = TextSource.Resource(RString.add_item_error),
+                            buttonText = TextSource.Resource(R.string.ok)
+                        )
+                    )
                 }
             }
-            .catch {
-                it.printStackTrace()
-            }.launchIn(viewModelScope)*/
+        }
     }
 }

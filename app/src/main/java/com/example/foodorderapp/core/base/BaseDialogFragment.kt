@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.coreui.extensions.collectWhenStarted
 import com.example.coreui.extensions.navigateSafe
 import com.example.foodorderapp.core.navigation.Command
-import com.example.foodorderapp.util.RStyle
+import com.example.foodorderapp.util.type_alias.RStyle
 
 abstract class BaseDialogFragment<VM : BaseViewModel>(@LayoutRes layout: Int) :
     DialogFragment(layout) {

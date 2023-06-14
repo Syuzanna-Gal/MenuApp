@@ -10,7 +10,7 @@ import coil.transform.RoundedCornersTransformation
 import com.example.domain.entity.BasketItemUiEntity
 import com.example.foodorderapp.R
 import com.example.foodorderapp.databinding.ItemInBasketBinding
-import com.example.foodorderapp.util.RString
+import com.example.foodorderapp.util.type_alias.RString
 import me.ibrahimyilmaz.kiel.adapterOf
 import me.ibrahimyilmaz.kiel.core.RecyclerViewHolder
 

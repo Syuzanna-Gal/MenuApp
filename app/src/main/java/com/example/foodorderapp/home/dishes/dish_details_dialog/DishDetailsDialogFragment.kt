@@ -13,7 +13,7 @@ import com.example.foodorderapp.MainActivity
 import com.example.foodorderapp.R
 import com.example.foodorderapp.core.base.BaseDialogFragment
 import com.example.foodorderapp.databinding.DialogDishDetailsBinding
-import com.example.foodorderapp.util.RString
+import com.example.foodorderapp.util.type_alias.RString
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
