@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.coreui.delegate.viewBinding
+import com.example.coreui.extensions.collectWhenStarted
 import com.example.foodorderapp.MainActivity
 import com.example.foodorderapp.R
 import com.example.foodorderapp.core.base.BaseDialogFragment
@@ -45,9 +46,15 @@ class DishDetailsDialogFragment :
         }
         btnAddToBasket.setOnClickListener {
             viewModel.addToBasket(dish)
+
+        }
+    }
+
+    override fun initObservers() {
+        collectWhenStarted(viewModel.successfullyAdded){
             dialog?.dismiss()
             findNavController().popBackStack()
-            (activity as MainActivity).changeTab(R.id.basket_graph)
+            (activity as? MainActivity)?.changeTab(R.id.basket_graph)
         }
     }
 }

@@ -17,7 +17,7 @@ class CurrentAddressDelegate @Inject constructor() {
     )
     val currentAddress = _currentAddress.asSharedFlow()
 
-    suspend fun setCurrentAddress(city: Address) {
-        _currentAddress.emit(city)
+    suspend fun setCurrentAddress(address: Address) {
+        _currentAddress.emit(address)
     }
 }

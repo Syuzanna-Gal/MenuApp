@@ -3,12 +3,12 @@ package com.example.foodorderapp
 import android.app.Application
 import android.location.Geocoder
 import android.location.Location
-import android.os.Build
 import androidx.annotation.RequiresPermission
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coreui.util.DATE_LOCALE_TYPE
 import com.example.domain.delegate.CurrentAddressDelegate
+import com.example.foodorderapp.core.extension.fetchAddress
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
@@ -49,24 +49,12 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    //TODO: geocoder extension
     private fun getAddressFromLocation(location: Location) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            geocoder.getFromLocation(location.latitude, location.longitude, 1) {
-                it.firstOrNull()?.let {
-                    viewModelScope.launch { currentAddressDelegate.setCurrentAddress(it) }
+        geocoder.fetchAddress(location) { address ->
+            address?.let {
+                viewModelScope.launch {
+                    currentAddressDelegate.setCurrentAddress(address)
                 }
-            }
-        } else {
-            @Suppress("DEPRECATION")
-            try {
-                geocoder.getFromLocation(location.latitude, location.longitude, 1)?.firstOrNull()
-                    ?.let {
-                        viewModelScope.launch { currentAddressDelegate.setCurrentAddress(it) }
-                    }
-            } catch (e: Exception) {
-                //will catch if there is an internet problem
-                e.printStackTrace()
             }
         }
     }

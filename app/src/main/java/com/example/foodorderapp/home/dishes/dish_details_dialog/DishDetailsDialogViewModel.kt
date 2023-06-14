@@ -13,6 +13,8 @@ import com.example.foodorderapp.util.event.InfoEvent
 import com.example.foodorderapp.util.type_alias.RString
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,6 +24,9 @@ class DishDetailsDialogViewModel @Inject constructor(
     private val updateBasketItemUseCase: UpdateBasketItemUseCase,
     private val getBasketItemByIdUseCase: GetBasketItemByIdUseCase
 ) : BaseViewModel() {
+
+    private val _successfullyAdded = Channel<Unit>(Channel.CONFLATED)
+    val successfullyAdded = _successfullyAdded.receiveAsFlow()
 
     fun addToBasket(dishUiEntity: DishUiEntity) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -41,6 +46,7 @@ class DishDetailsDialogViewModel @Inject constructor(
             if (basketItem != null) {
                 try {
                     updateBasketItemUseCase.invoke(basketItem)
+                    _successfullyAdded.send(Unit)
                 } catch (e: java.lang.Exception) {
                     emitInfoEvent(
                         InfoEvent.Info(
@@ -53,6 +59,7 @@ class DishDetailsDialogViewModel @Inject constructor(
             } else {
                 try {
                     addToBasketUseCase.invoke(dishUiEntity, 1)
+                    _successfullyAdded.send(Unit)
                 } catch (e: java.lang.Exception) {
                     emitInfoEvent(
                         InfoEvent.Info(

@@ -2,10 +2,10 @@ package com.example.foodorderapp
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.PermissionChecker
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
@@ -19,12 +19,13 @@ import com.example.foodorderapp.util.type_alias.RString
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(),  InfoEventCollector by InfoEventCollectorImpl() {
+class MainActivity : AppCompatActivity(), InfoEventCollector by InfoEventCollectorImpl() {
 
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
 
     private val viewModel: MainViewModel by viewModels()
+    private var permissionRequiredDialog: InfoBottomSheetDialog? = null
 
     @SuppressLint("MissingPermission")
     private val locationPermissionRequest = registerForActivityResult(
@@ -50,9 +51,13 @@ class MainActivity : AppCompatActivity(),  InfoEventCollector by InfoEventCollec
                         buttonText = getString(RString.settings)
                     )
 
-                InfoBottomSheetDialog
+                permissionRequiredDialog = InfoBottomSheetDialog
                     .newInstance(args)
-                    .show(this.supportFragmentManager, InfoBottomSheetDialog.TAG)
+
+                permissionRequiredDialog?.show(
+                    this.supportFragmentManager,
+                    InfoBottomSheetDialog.TAG
+                )
             }
         }
     }
@@ -63,6 +68,28 @@ class MainActivity : AppCompatActivity(),  InfoEventCollector by InfoEventCollec
         setContentView(binding.root)
         setupBottomNavigation()
         locationPermissionRequest.launch(locationPermissions)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        when (PermissionChecker.PERMISSION_GRANTED) {
+            PermissionChecker.checkSelfPermission(
+                this,
+                locationPermissions.first()
+            ) -> {
+                viewModel.fetchCurrentLocation(true)
+                permissionRequiredDialog?.dismiss()
+            }
+            PermissionChecker.checkSelfPermission(
+                this,
+                locationPermissions.last()
+            ) -> {
+                viewModel.fetchCurrentLocation(false)
+                permissionRequiredDialog?.dismiss()
+            }
+            else -> Unit
+        }
     }
 
     private fun setupBottomNavigation() {
@@ -80,14 +107,14 @@ class MainActivity : AppCompatActivity(),  InfoEventCollector by InfoEventCollec
         }
     }
 
+    fun changeTab(navId: Int) {
+        binding.bottomNav.selectedItemId = navId
+    }
+
     companion object {
         private val locationPermissions = arrayOf(
             android.Manifest.permission.ACCESS_COARSE_LOCATION,
             android.Manifest.permission.ACCESS_FINE_LOCATION,
         )
-    }
-
-    fun changeTab(navId: Int) {
-        binding.bottomNav.selectedItemId = navId
     }
 }
