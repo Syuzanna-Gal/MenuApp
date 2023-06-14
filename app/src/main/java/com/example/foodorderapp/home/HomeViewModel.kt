@@ -1,7 +1,7 @@
 package com.example.foodorderapp.home
 
 import androidx.lifecycle.viewModelScope
-import com.example.domain.delegate.CurrentCityDelegate
+import com.example.domain.delegate.CurrentAddressDelegate
 import com.example.domain.entity.CategoryUiEntity
 import com.example.domain.usecase.GetCategoryUseCase
 import com.example.foodorderapp.core.base.BaseViewModel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getCategoryUseCase: GetCategoryUseCase,
-    val currentCityDelegate: CurrentCityDelegate,
+    val currentAddressDelegate: CurrentAddressDelegate,
 ) : BaseViewModel() {
 
     private val _categoriesList = MutableStateFlow<List<CategoryUiEntity?>?>(null)

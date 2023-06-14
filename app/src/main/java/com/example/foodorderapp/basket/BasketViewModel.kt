@@ -1,7 +1,7 @@
 package com.example.foodorderapp.basket
 
 import androidx.lifecycle.viewModelScope
-import com.example.domain.delegate.CurrentCityDelegate
+import com.example.domain.delegate.CurrentAddressDelegate
 import com.example.domain.entity.BasketItemUiEntity
 import com.example.domain.usecase.RemoveAllUseCase
 import com.example.domain.usecase.RemoveFromBasketUseCase
@@ -23,7 +23,7 @@ class BasketViewModel @Inject constructor(
     private val updateBasketItemUseCase: UpdateBasketItemUseCase,
     private val removeFromBasketUseCase: RemoveFromBasketUseCase,
     private val removeAllUseCase: RemoveAllUseCase,
-    val currentCityDelegate: CurrentCityDelegate,
+    val currentAddressDelegate: CurrentAddressDelegate,
 ) : BaseViewModel() {
 
     private val _basketItemsList = MutableStateFlow<List<BasketItemUiEntity?>?>(null)

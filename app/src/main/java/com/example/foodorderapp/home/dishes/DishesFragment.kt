@@ -34,15 +34,16 @@ class DishesFragment : BaseFragment<DishesViewModel>(R.layout.fragment_dishes) {
         ivUserPic.load(USER_PIC_URL) {
             transformations(RoundedCornersTransformation(USER_PIC_IMAGE_RADIUS))
         }
-        btnBack.setOnClickListener { activity?.onBackPressedDispatcher?.onBackPressed() }
         tvTitle.text = navArgs.title
         rvDishes.adapter = dishesAdapter.adapter
         rvDishes.addItemDecoration(AdaptiveSpacingItemDecoration(8.dp, edgeEnabled = true))
-        tlFilters.addOnTabSelectedListener { tab ->
-            tab?.let {
-                viewModel.updateDishesAccordingTag(it.text.toString())
+        tlFilters.addOnTabSelectedListener(
+            onTabSelected = { tab ->
+                viewModel.updateDishesAccordingTag(tab.text.toString())
             }
-        }
+        )
+
+        btnBack.setOnClickListener { activity?.onBackPressedDispatcher?.onBackPressed() }
     }
 
     override fun initObservers() {

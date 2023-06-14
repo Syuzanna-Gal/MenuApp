@@ -18,15 +18,17 @@ fun TabLayout.changeTabParams() {
     }
 }
 
-fun TabLayout.addOnTabSelectedListener(
-    onTabSelected: (TabLayout.Tab?) -> Unit
-) {
-    addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-        override fun onTabSelected(tab: TabLayout.Tab?) {
-            onTabSelected(tab)
+inline fun TabLayout.addOnTabSelectedListener(
+    crossinline onTabSelected: (tab: TabLayout.Tab) -> Unit
+): TabLayout.OnTabSelectedListener {
+    val tabSelectedListener = object : TabLayout.OnTabSelectedListener {
+        override fun onTabSelected(tab: TabLayout.Tab) {
+            onTabSelected.invoke(tab)
         }
 
-        override fun onTabUnselected(tab: TabLayout.Tab?) {}
-        override fun onTabReselected(tab: TabLayout.Tab?) {}
-    })
+        override fun onTabUnselected(tab: TabLayout.Tab) {}
+        override fun onTabReselected(tab: TabLayout.Tab) {}
+    }
+    addOnTabSelectedListener(tabSelectedListener)
+    return tabSelectedListener
 }

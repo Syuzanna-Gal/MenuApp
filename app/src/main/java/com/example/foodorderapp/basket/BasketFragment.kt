@@ -68,8 +68,8 @@ class BasketFragment : BaseFragment<BasketViewModel>(R.layout.fragment_basket) {
             }
         }
 
-        collectWhenStarted(viewModel.currentCityDelegate.currentCity) {
-            binding.tvAddress.text = it
+        collectWhenStarted(viewModel.currentAddressDelegate.currentAddress) {
+            binding.tvAddress.text = it.locality
         }
     }
 

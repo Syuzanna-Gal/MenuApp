@@ -8,7 +8,7 @@ import androidx.annotation.RequiresPermission
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coreui.util.DATE_LOCALE_TYPE
-import com.example.domain.delegate.CurrentCityDelegate
+import com.example.domain.delegate.CurrentAddressDelegate
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
@@ -22,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val application: Application,
-    private val currentCityDelegate: CurrentCityDelegate,
+    private val currentAddressDelegate: CurrentAddressDelegate,
 ) : AndroidViewModel(application) {
 
     private val locationClient by lazy {
@@ -54,7 +54,7 @@ class MainViewModel @Inject constructor(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             geocoder.getFromLocation(location.latitude, location.longitude, 1) {
                 it.firstOrNull()?.let {
-                    viewModelScope.launch { currentCityDelegate.setCurrentCity(it.locality) }
+                    viewModelScope.launch { currentAddressDelegate.setCurrentAddress(it) }
                 }
             }
         } else {
@@ -62,7 +62,7 @@ class MainViewModel @Inject constructor(
             try {
                 geocoder.getFromLocation(location.latitude, location.longitude, 1)?.firstOrNull()
                     ?.let {
-                        viewModelScope.launch { currentCityDelegate.setCurrentCity(it.locality) }
+                        viewModelScope.launch { currentAddressDelegate.setCurrentAddress(it) }
                     }
             } catch (e: Exception) {
                 //will catch if there is an internet problem

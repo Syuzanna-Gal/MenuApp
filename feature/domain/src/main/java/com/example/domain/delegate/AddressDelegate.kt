@@ -1,5 +1,6 @@
 package com.example.domain.delegate
 
+import android.location.Address
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -8,15 +9,15 @@ import javax.inject.Singleton
 
 
 @Singleton
-class CurrentCityDelegate @Inject constructor() {
+class CurrentAddressDelegate @Inject constructor() {
 
-    private val _currentCity = MutableSharedFlow<String>(
+    private val _currentAddress = MutableSharedFlow<Address>(
         replay = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
-    val currentCity = _currentCity.asSharedFlow()
+    val currentAddress = _currentAddress.asSharedFlow()
 
-    suspend fun setCurrentCity(city: String) {
-        _currentCity.emit(city)
+    suspend fun setCurrentAddress(city: Address) {
+        _currentAddress.emit(city)
     }
 }
