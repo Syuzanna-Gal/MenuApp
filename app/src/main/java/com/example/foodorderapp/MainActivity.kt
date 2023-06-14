@@ -76,4 +76,8 @@ class MainActivity : AppCompatActivity() {
             android.Manifest.permission.ACCESS_FINE_LOCATION,
         )
     }
+
+    fun changeTab(navId: Int) {
+        binding.bottomNav.selectedItemId = navId
+    }
 }

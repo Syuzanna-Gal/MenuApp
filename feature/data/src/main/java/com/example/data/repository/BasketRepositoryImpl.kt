@@ -17,7 +17,7 @@ import javax.inject.Singleton
 class BasketRepositoryImpl @Inject constructor(private val basketItemDao: BasketItemDao) :
     BasketRepository {
 
-    override fun subscribeBasketItems(): Flow<List<BasketItemUiEntity>> =
+    override fun subscribeBasketItems(): Flow<List<BasketItemUiEntity?>> =
         basketItemDao.findAllAsFlow().map {
             MapperBasketItemToUiEntity().map(it)
         }
@@ -39,9 +39,9 @@ class BasketRepositoryImpl @Inject constructor(private val basketItemDao: Basket
         }
     }
 
-    override fun getBasketItemById(id: Int): Flow<BasketItemUiEntity?> = flow {
-        emit(basketItemDao.findById(id)?.let { MapperBasketItemToUiEntity().map(it) })
-    }
+    override fun getBasketItemById(id: Int): BasketItemUiEntity? =
+        MapperBasketItemToUiEntity().map(basketItemDao.findById(id))
+
 
     override suspend fun deleteAll() = basketItemDao.deleteAll()
 }

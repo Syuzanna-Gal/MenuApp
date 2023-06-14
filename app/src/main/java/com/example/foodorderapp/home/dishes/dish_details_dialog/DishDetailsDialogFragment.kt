@@ -5,9 +5,11 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.coreui.delegate.viewBinding
+import com.example.foodorderapp.MainActivity
 import com.example.foodorderapp.R
 import com.example.foodorderapp.core.base.BaseDialogFragment
 import com.example.foodorderapp.databinding.DialogDishDetailsBinding
@@ -44,6 +46,8 @@ class DishDetailsDialogFragment :
         btnAddToBasket.setOnClickListener {
             viewModel.addToBasket(dish)
             dialog?.dismiss()
+            findNavController().popBackStack()
+            (activity as MainActivity).changeTab(R.id.basket_graph)
         }
     }
 }
