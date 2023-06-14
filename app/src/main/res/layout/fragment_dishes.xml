@@ -67,6 +67,8 @@
         android:layout_marginTop="@dimen/dp_16"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="3" />
+        app:spanCount="3"
+        tools:itemCount="10"
+        tools:listitem="@layout/item_dish" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

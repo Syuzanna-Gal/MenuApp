@@ -3,6 +3,7 @@ package com.example.foodorderapp.basket
 import androidx.lifecycle.viewModelScope
 import com.example.domain.delegate.CurrentCityDelegate
 import com.example.domain.entity.BasketItemUiEntity
+import com.example.domain.usecase.RemoveAllUseCase
 import com.example.domain.usecase.RemoveFromBasketUseCase
 import com.example.domain.usecase.SubscribeBasketItemsUseCase
 import com.example.domain.usecase.UpdateBasketItemUseCase
@@ -21,6 +22,7 @@ class BasketViewModel @Inject constructor(
     private val subscribeBasketItemsUseCase: SubscribeBasketItemsUseCase,
     private val updateBasketItemUseCase: UpdateBasketItemUseCase,
     private val removeFromBasketUseCase: RemoveFromBasketUseCase,
+    private val removeAllUseCase: RemoveAllUseCase,
     val currentCityDelegate: CurrentCityDelegate,
 ) : BaseViewModel() {
 
@@ -54,6 +56,12 @@ class BasketViewModel @Inject constructor(
     fun removeItem(basketItemUiEntity: BasketItemUiEntity) {
         viewModelScope.launch {
             removeFromBasketUseCase(basketItemUiEntity)
+        }
+    }
+
+    fun removeAll() {
+        viewModelScope.launch {
+            removeAllUseCase.invoke()
         }
     }
 

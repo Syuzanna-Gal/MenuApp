@@ -29,4 +29,7 @@ interface BasketItemDao {
 
     @Delete
     suspend fun delete(basketItem: BasketItemDbEntity)
+
+    @Query("DELETE FROM basket_item")
+    suspend fun deleteAll()
 }

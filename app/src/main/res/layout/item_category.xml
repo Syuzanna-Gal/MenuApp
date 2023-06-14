@@ -6,7 +6,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivCategoryImage"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_148" />
+        android:layout_height="@dimen/dp_148"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvCategoryName"

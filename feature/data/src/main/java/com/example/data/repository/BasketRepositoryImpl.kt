@@ -42,4 +42,6 @@ class BasketRepositoryImpl @Inject constructor(private val basketItemDao: Basket
     override fun getBasketItemById(id: Int): Flow<BasketItemUiEntity?> = flow {
         emit(basketItemDao.findById(id)?.let { MapperBasketItemToUiEntity().map(it) })
     }
+
+    override suspend fun deleteAll() = basketItemDao.deleteAll()
 }

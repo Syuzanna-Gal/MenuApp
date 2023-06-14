@@ -34,6 +34,14 @@
         <argument
             android:name="dish"
             app:argType="com.example.domain.entity.DishUiEntity" />
+        <action
+            android:id="@+id/toBasketFragment"
+            app:destination="@id/basketFragment" />
     </dialog>
+
+    <fragment
+        android:id="@+id/basketFragment"
+        android:name="com.example.foodorderapp.basket.BasketFragment"
+        android:label="BasketFragment" />
 
 </navigation>

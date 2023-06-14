@@ -16,4 +16,6 @@ interface BasketRepository {
 
     fun getBasketItemById(id: Int): Flow<BasketItemUiEntity?>
 
+    suspend fun deleteAll()
+
 }

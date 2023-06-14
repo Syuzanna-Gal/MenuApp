@@ -6,11 +6,11 @@ import com.example.domain.usecase.AddToBasketUseCase
 import com.example.domain.usecase.GetBasketItemByIdUseCase
 import com.example.domain.usecase.UpdateBasketItemUseCase
 import com.example.foodorderapp.core.base.BaseViewModel
+import com.example.foodorderapp.core.navigation.Command
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,16 +21,22 @@ class DishDetailsDialogViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     fun addToBasket(dishUiEntity: DishUiEntity) {
-            getBasketItemByIdUseCase.invoke(dishUiEntity.id)
-                .onEach { basketItem ->
-                    if (basketItem != null) {
-                        updateBasketItemUseCase.invoke(basketItem)
-                    } else {
-                        addToBasketUseCase.invoke(dishUiEntity, 1)
-                    }
+        getBasketItemByIdUseCase.invoke(dishUiEntity.id)
+            .onEach { basketItem ->
+                if (basketItem != null) {
+                    updateBasketItemUseCase.invoke(basketItem)
+                } else {
+                    addToBasketUseCase.invoke(dishUiEntity, 1)
                 }
-                .catch {
-                    it.printStackTrace()
-                }.launchIn(viewModelScope)
+                navigateToBasket()
+            }
+            .catch {
+                it.printStackTrace()
+            }.launchIn(viewModelScope)
+    }
+
+    private fun navigateToBasket() {
+        val dir = DishDetailsDialogFragmentDirections.toBasketFragment()
+        sendCommand(Command.NavCommand(dir))
     }
 }

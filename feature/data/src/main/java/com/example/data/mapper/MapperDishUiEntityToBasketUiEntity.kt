@@ -2,7 +2,6 @@ package com.example.data.mapper
 
 import com.example.data.local.db.entity.BasketItemDbEntity
 import com.example.domain.entity.DishUiEntity
-import com.example.domain.mapper.Mapper
 
 class MapperDishUiEntityToBasketItemDbEntity(private val quantity: Int) :
     Mapper<DishUiEntity, BasketItemDbEntity> {

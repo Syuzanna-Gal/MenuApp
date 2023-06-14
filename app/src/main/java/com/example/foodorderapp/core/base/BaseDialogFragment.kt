@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.coreui.extensions.collectWhenStarted
 import com.example.coreui.extensions.navigateSafe
 import com.example.foodorderapp.core.navigation.Command
+import com.example.foodorderapp.util.RStyle
 
 abstract class BaseDialogFragment<VM : BaseViewModel>(@LayoutRes layout: Int) :
     DialogFragment(layout) {
@@ -19,7 +20,7 @@ abstract class BaseDialogFragment<VM : BaseViewModel>(@LayoutRes layout: Int) :
     private var navController: NavController? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        setStyle(STYLE_NORMAL, com.example.coreui.R.style.DialogTheme)
+        setStyle(STYLE_NORMAL, RStyle.DialogTheme)
         return super.onCreateDialog(savedInstanceState)
     }
 

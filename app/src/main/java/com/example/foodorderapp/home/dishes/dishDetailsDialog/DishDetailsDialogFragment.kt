@@ -3,7 +3,6 @@ package com.example.foodorderapp.home.dishes.dishDetailsDialog
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -12,6 +11,7 @@ import com.example.coreui.delegate.viewBinding
 import com.example.foodorderapp.R
 import com.example.foodorderapp.core.base.BaseDialogFragment
 import com.example.foodorderapp.databinding.DialogDishDetailsBinding
+import com.example.foodorderapp.util.RString
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,7 +28,7 @@ class DishDetailsDialogFragment :
         ivDish.load(dish.imageUrl)
         tvDescription.text = dish.description
         val priceAndWeightTitle =
-            requireContext().getString(com.example.coreui.R.string.price_and_weight)
+            requireContext().getString(RString.price_and_weight)
                 .format(dish.price.toInt().toString(), dish.weight.toInt().toString())
         val outPutColoredText: Spannable = SpannableString(priceAndWeightTitle)
         outPutColoredText.setSpan(

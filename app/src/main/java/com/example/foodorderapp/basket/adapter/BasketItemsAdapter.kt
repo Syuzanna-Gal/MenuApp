@@ -10,6 +10,7 @@ import coil.transform.RoundedCornersTransformation
 import com.example.domain.entity.BasketItemUiEntity
 import com.example.foodorderapp.R
 import com.example.foodorderapp.databinding.ItemInBasketBinding
+import com.example.foodorderapp.util.RString
 import me.ibrahimyilmaz.kiel.adapterOf
 import me.ibrahimyilmaz.kiel.core.RecyclerViewHolder
 
@@ -63,7 +64,7 @@ class BasketItemsAdapter(
             }
 
             val priceAndWeightTitle =
-                itemView.context.getString(com.example.coreui.R.string.price_and_weight)
+                itemView.context.getString(RString.price_and_weight)
                     .format(item.price.toInt().toString(), item.weight.toInt().toString())
             val outPutColoredText: Spannable = SpannableString(priceAndWeightTitle)
             outPutColoredText.setSpan(

@@ -7,4 +7,6 @@
     <string name="add_to_basket">Добавить в корзину</string>
     <string name="price_and_weight">%s ₽ · %sг</string>
     <string name="pay">Оплатить %s ₽</string>
+    <string name="basket_is_empty">В корзине пока нечего нет</string>
+    <string name="payed_successfully">Ура! оплачено</string>
 </resources>

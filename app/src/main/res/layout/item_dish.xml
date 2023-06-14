@@ -2,6 +2,7 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <FrameLayout
@@ -24,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_3"
         android:layout_marginBottom="@dimen/sp_14"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        tools:text="Title"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
