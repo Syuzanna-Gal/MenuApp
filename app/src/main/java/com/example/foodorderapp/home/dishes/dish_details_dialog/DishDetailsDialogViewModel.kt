@@ -1,4 +1,4 @@
-package com.example.foodorderapp.home.dishes.dishDetailsDialog
+package com.example.foodorderapp.home.dishes.dish_details_dialog
 
 import androidx.lifecycle.viewModelScope
 import com.example.domain.entity.DishUiEntity
