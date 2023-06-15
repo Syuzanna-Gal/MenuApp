@@ -29,7 +29,7 @@ class DishesViewModel @Inject constructor(
         getDishesList()
     }
 
-    fun getDishesList() {
+    private fun getDishesList() {
         getDishesUseCase.invoke()
             .onEach { dishes ->
                 _tagsList.value =
@@ -55,7 +55,7 @@ class DishesViewModel @Inject constructor(
     }
 
     fun navigateToDishDetails(dish: DishUiEntity) {
-        val dir = DishesFragmentDirections.toDishDetailsDialogFragment(dish)
+        val dir = DishesFragmentDirections.toDishDetailsDialogFragment(dish = dish)
         sendCommand(Command.NavCommand(dir))
     }
 

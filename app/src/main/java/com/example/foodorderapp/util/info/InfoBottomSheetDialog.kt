@@ -29,7 +29,7 @@ class InfoBottomSheetDialog :
         btnAction.setOnClickListener {
             if (args.buttonText == getString(RString.settings)) {
                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                val uri = Uri.fromParts("package", context?.packageName, null);
+                val uri = Uri.fromParts(PACKAGE, context?.packageName, null);
                 intent.data = uri;
                 startActivity(intent)
             } else {
@@ -39,6 +39,7 @@ class InfoBottomSheetDialog :
     }
 
     companion object {
+        private const val PACKAGE = "package"
         private const val KEY_ARGS = "key_args"
         const val TAG = "InfoBottomSheetDialog"
 

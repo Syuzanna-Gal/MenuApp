@@ -10,7 +10,6 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.coreui.delegate.viewBinding
 import com.example.coreui.extensions.collectWhenStarted
-import com.example.foodorderapp.MainActivity
 import com.example.foodorderapp.R
 import com.example.foodorderapp.core.base.BaseDialogFragment
 import com.example.foodorderapp.databinding.DialogDishDetailsBinding
@@ -51,10 +50,10 @@ class DishDetailsDialogFragment :
     }
 
     override fun initObservers() {
-        collectWhenStarted(viewModel.successfullyAdded){
+        collectWhenStarted(viewModel.successfullyAdded) {
             dialog?.dismiss()
             findNavController().popBackStack()
-            (activity as? MainActivity)?.changeTab(R.id.basket_graph)
+            viewModel.changeCurrentTab(R.id.basket_graph)
         }
     }
 }

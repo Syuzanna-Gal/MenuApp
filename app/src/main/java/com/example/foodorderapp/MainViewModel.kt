@@ -7,6 +7,7 @@ import androidx.annotation.RequiresPermission
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coreui.util.DATE_LOCALE_TYPE
+import com.example.domain.delegate.ChangeTabDelegate
 import com.example.domain.delegate.CurrentAddressDelegate
 import com.example.foodorderapp.core.extension.fetchAddress
 import com.google.android.gms.location.LocationServices
@@ -23,6 +24,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val application: Application,
     private val currentAddressDelegate: CurrentAddressDelegate,
+    val changeTabDelegate: ChangeTabDelegate
 ) : AndroidViewModel(application) {
 
     private val locationClient by lazy {

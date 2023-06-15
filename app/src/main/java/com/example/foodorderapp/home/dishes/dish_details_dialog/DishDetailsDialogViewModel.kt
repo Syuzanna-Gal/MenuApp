@@ -1,6 +1,7 @@
 package com.example.foodorderapp.home.dishes.dish_details_dialog
 
 import androidx.lifecycle.viewModelScope
+import com.example.domain.delegate.ChangeTabDelegate
 import com.example.domain.entity.BasketItemUiEntity
 import com.example.domain.entity.DishUiEntity
 import com.example.domain.usecase.AddToBasketUseCase
@@ -22,7 +23,8 @@ import javax.inject.Inject
 class DishDetailsDialogViewModel @Inject constructor(
     private val addToBasketUseCase: AddToBasketUseCase,
     private val updateBasketItemUseCase: UpdateBasketItemUseCase,
-    private val getBasketItemByIdUseCase: GetBasketItemByIdUseCase
+    private val getBasketItemByIdUseCase: GetBasketItemByIdUseCase,
+    private val changeTabDelegate: ChangeTabDelegate
 ) : BaseViewModel() {
 
     private val _successfullyAdded = Channel<Unit>(Channel.CONFLATED)
@@ -70,6 +72,12 @@ class DishDetailsDialogViewModel @Inject constructor(
                     )
                 }
             }
+        }
+    }
+
+    fun changeCurrentTab(tabRes: Int) {
+        viewModelScope.launch {
+            changeTabDelegate.setCurrentTabRes(tabRes)
         }
     }
 }

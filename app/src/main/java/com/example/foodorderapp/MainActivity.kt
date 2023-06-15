@@ -6,6 +6,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.PermissionChecker
+import androidx.lifecycle.coroutineScope
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
@@ -17,6 +18,8 @@ import com.example.foodorderapp.util.info_event.InfoEventCollector
 import com.example.foodorderapp.util.info_event.InfoEventCollectorImpl
 import com.example.foodorderapp.util.type_alias.RString
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), InfoEventCollector by InfoEventCollectorImpl() {
@@ -68,7 +71,7 @@ class MainActivity : AppCompatActivity(), InfoEventCollector by InfoEventCollect
         setContentView(binding.root)
         setupBottomNavigation()
         locationPermissionRequest.launch(locationPermissions)
-
+        initObservers()
     }
 
     override fun onResume() {
@@ -107,8 +110,12 @@ class MainActivity : AppCompatActivity(), InfoEventCollector by InfoEventCollect
         }
     }
 
-    fun changeTab(navId: Int) {
-        binding.bottomNav.selectedItemId = navId
+    private fun initObservers() {
+        viewModel.changeTabDelegate.tabRes
+            .onEach {
+                binding.bottomNav.selectedItemId = it
+            }
+            .launchIn(lifecycle.coroutineScope)
     }
 
     companion object {
