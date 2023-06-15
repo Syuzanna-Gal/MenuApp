@@ -12,13 +12,14 @@ import com.example.coreui.extensions.toSpacedFormat
 import com.example.coreui.util.AdaptiveSpacingItemDecoration
 import com.example.coreui.util.USER_PIC_IMAGE_RADIUS
 import com.example.coreui.util.USER_PIC_URL
+import com.example.coreui.util.setOnSingleClickListener
 import com.example.foodorderapp.R
 import com.example.foodorderapp.basket.adapter.BasketItemsAdapter
 import com.example.foodorderapp.core.base.BaseFragment
 import com.example.foodorderapp.databinding.FragmentBasketBinding
-import com.example.foodorderapp.util.type_alias.RString
 import com.example.foodorderapp.util.TextSource
 import com.example.foodorderapp.util.event.InfoEvent
+import com.example.foodorderapp.util.type_alias.RString
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,7 +45,7 @@ class BasketFragment : BaseFragment<BasketViewModel>(R.layout.fragment_basket) {
         tvTime.text = getCurrentDate()
         rvCategory.adapter = basketAdapter.adapter
         rvCategory.addItemDecoration(AdaptiveSpacingItemDecoration(16.dp, edgeEnabled = true))
-        btnPay.setOnClickListener {
+        btnPay.setOnSingleClickListener {
             viewModel.emitInfoEvent(
                 InfoEvent.Info(
                     title = TextSource.Resource(RString.payed_successfully_title),
