@@ -7,6 +7,6 @@
 
     <fragment
         android:id="@+id/basketFragment"
-        android:name="com.example.foodorderapp.basket.BasketFragment"
+        android:name="com.example.menuapp.basket.BasketFragment"
         tools:layout="@layout/fragment_basket" />
 </navigation>

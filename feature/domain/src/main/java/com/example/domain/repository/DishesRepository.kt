@@ -4,5 +4,5 @@ import com.example.domain.entity.DishUiEntity
 import kotlinx.coroutines.flow.Flow
 
 interface DishesRepository {
-    fun fetchDishes(): Flow<List<DishUiEntity>>
+    fun fetchDishes(category: String): Flow<List<DishUiEntity>>
 }

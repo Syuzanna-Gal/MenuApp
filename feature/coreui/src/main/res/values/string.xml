@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="home_title">Главная</string>
-    <string name="search_title">Поиск</string>
+    <string name="home_title">Меню</string>
     <string name="basket_title">Корзина</string>
-    <string name="profile_title">Аккаунт</string>
-    <string name="add_to_basket">Добавить в корзину</string>
-    <string name="price_and_weight">%s ₽ · %sг</string>
-    <string name="pay">Оплатить %s ₽</string>
+    <string name="profile_title">Профил</string>
     <string name="basket_is_empty">В корзине пока нечего нет</string>
-    <string name="payed_successfully_title">Спасибо!</string>
-    <string name="payed_successfully_desc">Ваш заказ оплачен</string>
     <string name="ok">Ok</string>
-    <string name="get_item_error">Не можем найти продукт</string>
-    <string name="update_item_error">Не можем обнавлять продукт</string>
-    <string name="add_item_error">Не можем добавить продукт</string>
-    <string name="remove_item_error">Не можем удалить продукт</string>
-    <string name="remove_all_items_error">Не можем удалить все продукти</string>
     <string name="location_permission_error">Дайте разрешение, чтобы могли продолжать</string>
     <string name="settings">Настройки</string>
+    <string name="meal_price">от %s р</string>
 </resources>

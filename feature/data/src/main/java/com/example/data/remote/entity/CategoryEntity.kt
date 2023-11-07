@@ -5,9 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class CategoryEntity(
+    @SerialName("idCategory")
     val id: Int,
-    @SerialName("image_url")
-    val imageUrl: String? = null,
+    @SerialName("strCategory")
     val name: String? = null
 )
 
@@ -15,6 +15,6 @@ class CategoryEntity(
 @Serializable
 class CategoriesEntity(
     // NOTE: c letter is Russian, we should take into account that
-    @SerialName("сategories")
+    @SerialName("categories")
     val categories: List<CategoryEntity>
 )

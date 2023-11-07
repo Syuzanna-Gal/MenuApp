@@ -7,9 +7,7 @@ import kotlinx.parcelize.Parcelize
 class DishUiEntity(
     val id: Int,
     val name: String,
-    val price: Double,
-    val weight: Double,
-    val description: String,
-    val imageUrl: String,
-    val tags: List<String>
+    val pic: String,
+    val description: String = "Very nyam nyam meal",
+    val price: Int = 345,
 ) : Parcelable

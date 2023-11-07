@@ -27,7 +27,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnAction"
-        style="@style/BlueRoundedStyle"
+        style="@style/RedRoundedStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_48"
         android:layout_marginTop="@dimen/dp_16"

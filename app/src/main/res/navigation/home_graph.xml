@@ -7,33 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.foodorderapp.home.HomeFragment"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/toDishesFragment"
-            app:destination="@id/dishesFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/dishesFragment"
-        android:name="com.example.foodorderapp.home.dishes.DishesFragment"
-        tools:layout="@layout/fragment_dishes">
-
-        <argument
-            android:name="title"
-            app:argType="string" />
-        <action
-            android:id="@+id/toDishDetailsDialogFragment"
-            app:destination="@id/dishDetailsDialogFragment" />
-    </fragment>
-
-    <dialog
-        android:id="@+id/dishDetailsDialogFragment"
-        android:name="com.example.foodorderapp.home.dishes.dish_details_dialog.DishDetailsDialogFragment"
-        tools:layout="@layout/dialog_dish_details">
-        <argument
-            android:name="dish"
-            app:argType="com.example.domain.entity.DishUiEntity" />
-    </dialog>
+        android:name="com.example.menuapp.home.HomeFragment"
+        tools:layout="@layout/fragment_home"/>
 
 </navigation>

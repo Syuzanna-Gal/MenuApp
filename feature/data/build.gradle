@@ -30,7 +30,7 @@ android {
 
     buildTypes {
         release {
-            buildConfigField("String", "API_BASE_URL", "\"https://run.mocky.io/v3/\"")
+            buildConfigField("String", "API_BASE_URL", "\"https://www.themealdb.com/api/json/v1/\"")
 
             minifyEnabled false
             proguardFiles(
@@ -40,7 +40,7 @@ android {
 
         }
         debug {
-            buildConfigField("String", "API_BASE_URL", "\"https://run.mocky.io/v3/\"")
+            buildConfigField("String", "API_BASE_URL", "\"https://www.themealdb.com/api/json/v1/\"")
         }
     }
 
@@ -71,11 +71,6 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.10.0"
     implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0"
-
-    //local database
-    implementation "androidx.room:room-runtime:2.5.1"
-    implementation "androidx.room:room-ktx:2.5.1"
-    kapt "androidx.room:room-compiler:2.5.1"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

@@ -9,11 +9,7 @@ internal class MapperDishToUiEntity : Mapper<DishEntity, DishUiEntity> {
         return DishUiEntity(
             id = from.id,
             name = from.name.orEmpty(),
-            price = from.price,
-            weight = from.weight,
-            description = from.description.orEmpty(),
-            imageUrl = from.imageUrl.orEmpty(),
-            tags = from.tags
+            pic = from.pic.orEmpty(),
         )
     }
 }

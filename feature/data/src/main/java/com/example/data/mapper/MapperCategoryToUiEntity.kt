@@ -9,7 +9,6 @@ internal class MapperCategoryToUiEntity : Mapper<CategoryEntity, CategoryUiEntit
         return CategoryUiEntity(
             id = from.id ,
             title = from.name.orEmpty(),
-            imageUrl = from.imageUrl.orEmpty()
         )
     }
 }

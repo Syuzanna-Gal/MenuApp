@@ -6,18 +6,16 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class DishEntity(
+    @SerialName("idMeal")
     val id: Int,
-    val name: String? = null,
-    val price: Double,
-    val weight: Double,
-    val description: String? = null,
-    @SerialName("image_url")
-    val imageUrl: String?=null,
-    @SerialName("tegs")
-    val tags: List<String> = listOf()
+    @SerialName("strMealThumb")
+    val pic: String? = null,
+    @SerialName("strMeal")
+    val name: String? = null
 )
 
 @Serializable
 class DishesEntity(
+    @SerialName("meals")
     val dishes: List<DishEntity>
 )

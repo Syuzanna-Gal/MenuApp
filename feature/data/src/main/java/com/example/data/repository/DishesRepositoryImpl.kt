@@ -13,8 +13,8 @@ import javax.inject.Singleton
 class DishesRepositoryImpl @Inject constructor(private val mainApi: MainApi) :
     DishesRepository {
 
-    override fun fetchDishes(): Flow<List<DishUiEntity>> = flow {
-        val result = mainApi.fetchDishes()
+    override fun fetchDishes(category: String): Flow<List<DishUiEntity>> = flow {
+        val result = mainApi.fetchDishes(category)
         emit(MapperDishToUiEntity().map(result.dishes))
     }
 }
